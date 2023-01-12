@@ -24,7 +24,7 @@ Project is created with:
 ## Setup
 
 Setup
-Clone this repo to your desktop and run npm install to install all the dependencies.
+Clone this repo to your desktop and run yarn to install all the dependencies.
 
 You might want to look into config.json to make change the port you want to use and set up a SSL certificate.
 
