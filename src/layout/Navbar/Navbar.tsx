@@ -52,7 +52,7 @@ export function MenuAppBar({ handleSidebarDisplay, displaySidebar }: { handleSid
                                     onClick={handleMenu}
                                     color="secondary"
                                 >
-                                    <ProgressPolymorphys child={false} as={UserIconConfig} style={{ color: 'white' }} />
+                                    <ProgressPolymorphys child={false} as={UserIconConfig} style={{ color: 'black' }} />
                                 </Button>
                             </ThemeProvider>
                             <Menu

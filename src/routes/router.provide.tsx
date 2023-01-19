@@ -14,3 +14,4 @@ export const Router = () => {
 
     return <RouterProvider router={router} fallbackElement={<h1>En produccion</h1>} />
 }
+
