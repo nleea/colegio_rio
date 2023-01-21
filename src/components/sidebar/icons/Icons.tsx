@@ -14,6 +14,9 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import TimelineIcon from '@mui/icons-material/Timeline';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SchoolIcon from '@mui/icons-material/School';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 
 export {
     HomeOutlinedIcon as HomeIcon,
@@ -31,5 +34,8 @@ export {
     ArrowDropDownIcon as ArrowDownIcon,
     DashboardIcon,
     NotificationsIcon,
-    TimelineIcon as Graphics
+    TimelineIcon as Graphics,
+    AdminPanelSettingsIcon as AdminPanel,
+    SchoolIcon,
+    HistoryEduIcon
 };

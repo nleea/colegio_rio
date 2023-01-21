@@ -1,54 +1,57 @@
-import { HomeIcon } from "@/components/sidebar/icons/Icons";
+import {
+  AdminPanel,
+  UserIcon,
+  RolesIcon,
+  SchoolIcon,
+  WizardIcon,
+  HistoryEduIcon,
+} from "@/components/sidebar/icons/Icons";
 
-export const Menu = [
+interface Imenu {
+  id: number;
+  name: string;
+  path: string;
+  icon: any;
+  children?: Array<any>;
+}
+
+export const Menu: Imenu[] = [
   {
     id: 1,
-    name: "Main",
-    path: "/",
-    icon: HomeIcon,
-  },
-  {
-    id: 2,
-    name: "Main2",
-    path: "/",
-    icon: HomeIcon,
+    name: "administracion",
+    path: "administracion",
+    icon: AdminPanel,
     children: [
       {
+        id: 2,
+        name: "colegio",
+        path: "colegio",
+        icon: SchoolIcon,
+      },
+      {
         id: 3,
-        name: "Main",
-        path: "/",
-        icon: HomeIcon,
+        name: "roles",
+        path: "roles",
+        icon: RolesIcon,
       },
       {
         id: 4,
-        name: "Main",
-        path: "/",
-        icon: HomeIcon,
-        children: [
-          {
-            id: 5,
-            name: "Main",
-            path: "/",
-            icon: HomeIcon,
-            children: [
-              {
-                id: 6,
-                name: "Main",
-                path: "/",
-                icon: HomeIcon,
-                children: [
-                  {
-                    id: 7,
-                    name: "Main",
-                    path: "/",
-                    icon: HomeIcon,
-                  },
-                ],
-              },
-            ],
-          },
-        ],
+        name: "modulos",
+        path: "modulos",
+        icon: WizardIcon,
+      },
+      {
+        id: 5,
+        name: "usurios",
+        path: "usuarios",
+        icon: UserIcon,
       },
     ],
+  },
+  {
+    id: 6,
+    name: "Academico",
+    path: "academico",
+    icon: HistoryEduIcon,
   },
 ];
