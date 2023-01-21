@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { instance } from "../instance/axiosInstance";
+import { instance } from "../../instance/axiosInstance";
 
 interface ErrorResponse {
   data: any;

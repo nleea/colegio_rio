@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Container, Grid, Paper, Typography, TextField, InputAdornment, IconButton, Button } from "@mui/material";
 import { AccountCircle, VisibilityOff, Visibility } from "@mui/icons-material";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { AuthCustomHooks } from "../../../hooks/loginAuth";
+import { AuthCustomHooks } from "../../../service/hooks/loginAuth";
 import { Inputs } from "./interfaces/Inputs";
 import "./style/login.scss";
 

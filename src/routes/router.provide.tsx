@@ -2,10 +2,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { DashBoard } from "../page/Dashboard/Dashboard";
 import { Auth } from "../page/Auth/Auth";
 import { Login } from "../layout/Auth/Login/Login";
-import { Module } from "../layout/Management/Module/Module";
-import { Roles } from "../layout/Management/Roles/Roles";
-import { School } from "../layout/Management/School/School";
-import { User } from "../layout/Management/User/User";
+import { Module } from "../page/Management/Module/Module";
+import { Roles } from "../page/Management/Roles/Roles";
+import { School } from "../page/Management/School/School";
+import { User } from "../page/Management/User/User";
 
 export const Router = () => {
 
