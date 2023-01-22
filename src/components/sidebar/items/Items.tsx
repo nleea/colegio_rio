@@ -9,7 +9,7 @@ import {
 import { ArrowDownIcon, ArrowIcon } from "@/components/sidebar/icons/Icons";
 import { Tooltip } from "@mui/material";
 
-const Items = ({ displaySidebar, itemData, color = "#eaeced", path = '', padding = false }: { displaySidebar: any, itemData: any, color?: any, path?: string, activeItem?: number, padding?: any }) => {
+const Items = ({ displaySidebar, itemData, color = "#eaeced", path = '', padding = 0 }: { displaySidebar: any, itemData: any, color?: string, path?: string, activeItem?: number, padding?: number }) => {
     const [active, setActive] = useState(false);
 
     if ('children' in itemData) {
@@ -27,7 +27,7 @@ const Items = ({ displaySidebar, itemData, color = "#eaeced", path = '', padding
                 <ItemsListChildren show={active} displaySidebar={displaySidebar} >
                     {itemData.children.map((sub: any, index: any) => (
                         <ItemContainer key={index} show={color}  >
-                            <Items displaySidebar={displaySidebar} itemData={sub} key={index} color={sub.color} path={path.concat(...["/", itemData.path])} padding={true} />
+                            <Items displaySidebar={displaySidebar} itemData={sub} key={index} color={sub.color} path={path.concat(...["/", itemData.path])} padding={0} />
                         </ItemContainer>
                     ))}
                 </ItemsListChildren>

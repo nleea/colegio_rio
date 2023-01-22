@@ -1,7 +1,8 @@
-import { useCallback, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { instance, controller } from "../../instance/axiosInstance";
 import { Person } from "../../page/Management/User/data";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { onLoad } from "../context/features/load";
 
 interface ErrorResponse {
     data: any;
@@ -16,34 +17,35 @@ type interfaceError = ErrorResponse | ErrorRequest;
 
 export const GetAll = (url: string) => {
 
+    const dispatch = useDispatch();
+
     const [state, setState] = useState<Person[]>();
-    const [isLoad, setLoad] = useState(false);
     const [error, setError] = useState<interfaceError>();
 
     useEffect(() => {
         const http = async () => {
             try {
                 const token = localStorage.getItem('token')
-                setLoad(true);
+                dispatch(onLoad(true))
                 const resp = await instance.get("api/" + url, { method: "GET" });
                 setState(resp.data.users);
-                setLoad(false);
+                dispatch(onLoad(false))
             } catch (error: any) {
                 if (error.response) {
                     setError({ data: error.response.data, status: error.response.status });
-                    setLoad(false);
+                    dispatch(onLoad(false))
                 } else if (error.request) {
                     setError({ request: error.request });
-                    setLoad(false);
+                    dispatch(onLoad(false))
                 } else {
                     console.log("Error", error.message);
-                    setLoad(false);
+                    dispatch(onLoad(false))
                 }
             }
         }
-        http()
+        http();
     }, [url]);
 
 
-    return { state, error, isLoad, controller }
+    return { state, error, controller }
 }

@@ -16,6 +16,7 @@ import Divider from "@mui/material/Divider";
 export function MenuAppBar({ handleSidebarDisplay, displaySidebar }: { handleSidebarDisplay: (e: any) => void, displaySidebar: boolean }) {
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -43,7 +44,7 @@ export function MenuAppBar({ handleSidebarDisplay, displaySidebar }: { handleSid
                         Menu
                     </Typography>
                     {auth && (
-                        <div>
+                        <>
                             <ThemeProvider theme={ButtonTheme} >
                                 <Button
                                     size="medium"
@@ -79,7 +80,7 @@ export function MenuAppBar({ handleSidebarDisplay, displaySidebar }: { handleSid
                                 <Divider />
                                 <MenuItem onClick={handleClose}>Cahnge Password</MenuItem>
                             </Menu>
-                        </div>
+                        </>
                     )}
                 </Toolbar>
             </AppBar>

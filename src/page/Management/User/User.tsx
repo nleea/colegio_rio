@@ -1,23 +1,14 @@
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 
 import { Box, Paper } from "@mui/material";
-
 import { GetAll } from "../../../service/hooks/GetAll";
-
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import { Person, data } from "./data";
-import 'react-virtualized/styles.css';
-
+import { Person } from "./data";
 import { ProgressPolymorphys } from "../../../components/UI/ProgressPolymorphys";
 
 function User() {
 
-    const { state, controller, isLoad } = GetAll("users");
-
-
-    useEffect(() => {
-        console.log(state)
-    }, [state])
+    const { state } = GetAll("users");
 
     const columns = useMemo<MRT_ColumnDef<Person>[]>(
         () => [
@@ -59,8 +50,7 @@ function User() {
             <Paper elevation={2} sx={{ borderRadius: "20px" }} >
 
                 {
-                    state === undefined ? <ProgressPolymorphys type="linear" /> : <MaterialReactTable
-
+                    state === undefined ? <ProgressPolymorphys type="circular" /> : <MaterialReactTable
                         manualExpanding={true}
                         columns={columns}
                         data={state}
@@ -72,11 +62,11 @@ function User() {
                         enableTopToolbar={true}
                         muiTableBodyRowProps={{ hover: true }}
                     />
-
                 }
+
             </Paper>
         </Box>
     );
 }
 
-export { User }
+export { User };

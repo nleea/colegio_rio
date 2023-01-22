@@ -5,12 +5,15 @@ import { Dashboard as DashboardContainer, SideBarContainer } from "./style/Dashb
 import { Media } from "@/utils/media/media";
 import { ProgressPolymorphys } from "@/components/UI/ProgressPolymorphys";
 import { Outlet } from "react-router-dom";
+import type { RootState } from "../../service/context/app/store";
+import { useSelector } from "react-redux";
 import "./style/dashboard.scss";
 
 export const DashBoard = () => {
 
     const [displaySidebar, setDisplaySidebar] = useState(!Media);
     const [displaySidebareltive, setDisplaySidebarRelative] = useState(false);
+    const load = useSelector((state: RootState) => state.isLoad.isLoad);
 
     const handleSidebarDisplay = (e: any) => {
         e.preventDefault();
@@ -26,7 +29,7 @@ export const DashBoard = () => {
         <DashboardContainer display={+displaySidebar} >
             <div className="navbar" >
                 <MenuAppBar handleSidebarDisplay={handleSidebarDisplay} displaySidebar={displaySidebar} />
-                {false && <ProgressPolymorphys type="linear" sx={{ width: '100%' }} child={true} />}
+                {load && <ProgressPolymorphys type="linear" sx={{ width: '100%' }} child={true} />}
             </div>
             <SideBarContainer show={displaySidebareltive} >
                 <SideBar displaySidebar={displaySidebar} />

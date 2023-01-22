@@ -6,6 +6,7 @@ import { Module } from "../page/Management/Module/Module";
 import { Roles } from "../page/Management/Roles/Roles";
 import { School } from "../page/Management/School/School";
 import { User } from "../page/Management/User/User";
+import { Management } from "../page/Management/Index";
 
 export const Router = () => {
 
@@ -14,22 +15,29 @@ export const Router = () => {
             path: "/",
             element: <DashBoard />,
             errorElement: <h1>En produccion</h1>,
+
             children: [
                 {
-                    path: "administracion/colegio",
-                    element: <School />
-                },
-                {
-                    path: "administracion/modulos",
-                    element: <Module />
-                },
-                {
-                    path: "administracion/usuarios",
-                    element: <User />
-                },
-                {
-                    path: "administracion/Roles",
-                    element: <Roles />
+                    path: "administracion",
+                    element: <Management />,
+                    children: [
+                        {
+                            path: "colegio",
+                            element: <School />
+                        },
+                        {
+                            path: "modulos",
+                            element: <Module />
+                        },
+                        {
+                            path: "usuarios",
+                            element: <User />
+                        },
+                        {
+                            path: "roles",
+                            element: <Roles />
+                        }
+                    ]
                 }
             ]
         },
