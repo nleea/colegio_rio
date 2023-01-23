@@ -8,7 +8,7 @@ import {
 import BrandLogo from "../../assets/react.svg";
 import { SidebarItems } from "@/components/sidebar/items/SideBarItems";
 
-export default function Sidebar({ displaySidebar }: { children?: any, displaySidebar: boolean }) {
+export default function Sidebar({ displaySidebar, closeHandler }: { children?: any, displaySidebar: boolean, closeHandler: any; }) {
 
     return (
         <>
@@ -27,7 +27,8 @@ export default function Sidebar({ displaySidebar }: { children?: any, displaySid
                             </SidebarBrand>
                         </SidebarLogo>
                     </SidebarLogoWrapper>
-                    <SidebarItems displaySidebar={displaySidebar} />
+                    <button onClick={closeHandler} >Close</button>
+                    <SidebarItems displaySidebar={displaySidebar} closeHandler={closeHandler} />
                 </SidebarWrapper>
             </SidebarContainer>
         </>

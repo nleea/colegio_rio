@@ -25,9 +25,11 @@ export const SideBarContainer = style.div`
     grid-area: sidebar;
     visibility: ${({ show }: { show: any }) => (show ? "visible" : "hidden")};
     position: fixed;
+    z-index: 10;
 
     @media(min-width:500px){
         display: block;
         visibility: visible;
+
     }
 `;

@@ -3,7 +3,7 @@ import { ItemsList, ItemContainer } from "../style/SideBarStyle";
 import { Items } from "./Items";
 import { Menu } from "@/utils/menu/data";
 
-const SidebarItems = ({ displaySidebar }: { displaySidebar: any }) => {
+const SidebarItems = ({ displaySidebar, closeHandler }: { displaySidebar: any, closeHandler: any }) => {
     const [activeItem, setActiveItem] = useState(0);
 
     return (
@@ -12,7 +12,7 @@ const SidebarItems = ({ displaySidebar }: { displaySidebar: any }) => {
                 <ItemContainer
                     onClick={() => setActiveItem(itemData.id)}
                     className={itemData.id === activeItem ? "active" : ""} key={index} >
-                    <Items displaySidebar={displaySidebar} key={index} itemData={itemData} activeItem={activeItem} />
+                    <Items displaySidebar={displaySidebar} key={index} itemData={itemData} activeItem={activeItem} closeHandlre={closeHandler} />
                 </ItemContainer>
             ))}
         </ItemsList>

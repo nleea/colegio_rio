@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {MenuAppBar} from "@/layout/Navbar/Navbar";
+import { MenuAppBar } from "@/layout/Navbar/Navbar";
 import SideBar from "@/layout/Sidebar/SideBar";
 import { Dashboard as DashboardContainer, SideBarContainer } from "./style/DashboardStyle";
 import { Media } from "@/utils/media/media";
@@ -16,7 +16,7 @@ export const DashBoard = () => {
     const load = useSelector((state: RootState) => state.isLoad.isLoad);
 
     const handleSidebarDisplay = (e: any) => {
-        e.preventDefault();
+        //e.preventDefault();
         if (window.innerWidth > 500) {
             setDisplaySidebar(!displaySidebar);
         } else {
@@ -32,7 +32,7 @@ export const DashBoard = () => {
                 {load && <ProgressPolymorphys type="linear" sx={{ width: '100%' }} child={true} />}
             </div>
             <SideBarContainer show={displaySidebareltive} >
-                <SideBar displaySidebar={displaySidebar} />
+                <SideBar displaySidebar={displaySidebar} closeHandler={handleSidebarDisplay} />
             </SideBarContainer>
             <div className="main">
                 <Outlet />

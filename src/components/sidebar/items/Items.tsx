@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
     ItemWrapper,
     ItemName,
@@ -9,8 +9,17 @@ import {
 import { ArrowDownIcon, ArrowIcon } from "@/components/sidebar/icons/Icons";
 import { Tooltip } from "@mui/material";
 
-const Items = ({ displaySidebar, itemData, color = "#eaeced", path = '', padding = 0 }: { displaySidebar: any, itemData: any, color?: string, path?: string, activeItem?: number, padding?: number }) => {
+const Items = ({ displaySidebar, itemData, closeHandlre, color = "#eaeced", path = '', padding = 0 }: { displaySidebar: any, itemData: any, closeHandlre: any, color?: string, path?: string, activeItem?: number, padding?: number }) => {
     const [active, setActive] = useState(false);
+    const location = useLocation();
+
+
+    useEffect(() => {
+        if (window.innerWidth < 500) {
+            closeHandlre()
+        }
+    }, [location.pathname])
+
 
     if ('children' in itemData) {
         return (
@@ -27,7 +36,7 @@ const Items = ({ displaySidebar, itemData, color = "#eaeced", path = '', padding
                 <ItemsListChildren show={active} displaySidebar={displaySidebar} >
                     {itemData.children.map((sub: any, index: any) => (
                         <ItemContainer key={index} show={color}  >
-                            <Items displaySidebar={displaySidebar} itemData={sub} key={index} color={sub.color} path={path.concat(...["/", itemData.path])} padding={0} />
+                            <Items displaySidebar={displaySidebar} closeHandlre={closeHandlre} itemData={sub} key={index} color={sub.color} path={path.concat(...["/", itemData.path])} padding={0} />
                         </ItemContainer>
                     ))}
                 </ItemsListChildren>
@@ -37,7 +46,7 @@ const Items = ({ displaySidebar, itemData, color = "#eaeced", path = '', padding
 
     return (
         <Tooltip title={itemData.name} arrow={true} disableHoverListener={displaySidebar} placement="left-start">
-            <Link to={path.concat(...["/", itemData.path])}>
+            <Link to={path.concat(...["/", itemData.path])} >
                 <ItemWrapper spacing={"true"} style={{ paddingRight: padding && 0 }} >
                     <itemData.icon />
                     <ItemName displaySidebar={displaySidebar}>
