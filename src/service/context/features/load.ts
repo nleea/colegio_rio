@@ -6,7 +6,7 @@ export interface Isload {
 }
 
 const initialState: Isload = {
-  isLoad: true,
+  isLoad: false,
 };
 
 export const counterSlice = createSlice({

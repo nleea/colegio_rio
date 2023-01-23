@@ -1,11 +1,6 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { AppBar, Box, Toolbar, Typography, MenuItem, Menu, Button } from "@mui/material";
 import { IconButton, MenuIcon, CloseIcon, UserIconConfig } from "@/components/navbar/icons/icons";
 import { ThemeProvider } from "@mui/material/styles";
 import { ButtonTheme } from "@/components/navbar/theme/ButtonTheme";
@@ -14,9 +9,9 @@ import Divider from "@mui/material/Divider";
 
 
 export function MenuAppBar({ handleSidebarDisplay, displaySidebar }: { handleSidebarDisplay: (e: any) => void, displaySidebar: boolean }) {
-    const [auth, setAuth] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    
+    const [auth, setAuth] = useState(true);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -71,7 +66,9 @@ export function MenuAppBar({ handleSidebarDisplay, displaySidebar }: { handleSid
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem>Correo@gmail.com</MenuItem>
+                                <MenuItem>
+                                    <Link to={"user/profile/personal"} style={{ color: "black" }} >Profile</Link>
+                                </MenuItem>
                                 <Divider />
                                 <MenuItem onClick={handleClose}>Cahnge Password</MenuItem>
                                 <MenuItem onClick={handleClose}>

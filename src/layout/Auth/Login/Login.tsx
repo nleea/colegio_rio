@@ -92,7 +92,7 @@ export const Login = () => {
                                     }
                                 />
                                 <Button variant="contained" color="success" type="submit" sx={{ marginTop: "15px" }} fullWidth >
-                                    Success
+                                    Login
                                 </Button>
                             </form>
                         </Grid>

@@ -8,6 +8,13 @@ import { School } from "../page/Management/School/School";
 import { User } from "../page/Management/User/User";
 import { Management } from "../page/Management/Index";
 
+import Profile from "../page/Profile/Profile";
+
+import ChangePassword from "@/page/Profile/components/ChangePassword";
+import PersonalInfo from "@/page/Profile/components/PersonalInfo";
+import Settings from "@/page/Profile/components/settings";
+
+
 export const Router = () => {
 
     const router = createBrowserRouter([
@@ -36,6 +43,24 @@ export const Router = () => {
                         {
                             path: "roles",
                             element: <Roles />
+                        }
+                    ]
+                },
+                {
+                    path: "user/profile",
+                    element: <Profile />,
+                    children: [
+                        {
+                            path: "personal",
+                            element: <PersonalInfo />
+                        },
+                        {
+                            path: "change/password",
+                            element: <ChangePassword />
+                        },
+                        {
+                            path: "settings",
+                            element: <Settings />
                         }
                     ]
                 }
