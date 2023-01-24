@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { TextField, Box, MenuItem, Button } from "@mui/material";
+import { Media } from "../../../utils/media/media";
 
 type FormValues = {
     name: string,
@@ -16,6 +18,21 @@ type FormValues = {
 
 
 const PersonalInfo = () => {
+    const [media, setMedia] = useState(true);
+
+
+    useEffect(() => {
+        window.addEventListener("resize", ChangeResize);
+    }, []);
+
+
+    const ChangeResize = () => {
+        if (window.innerWidth > 1200) {
+            setMedia(true);
+        } else {
+            setMedia(false);
+        }
+    }
 
     const sexType = [
         {
@@ -51,7 +68,7 @@ const PersonalInfo = () => {
                     multiline
                     rows={1.5}
                     label="Name"
-                    sx={{ margin: 2, width: "45%" }}
+                    sx={{ margin: 2, width: !media ? "100%" : "45%" }}
                     {...register("name")}
                 />
 
@@ -60,7 +77,7 @@ const PersonalInfo = () => {
                     multiline
                     rows={1.5}
                     label="Last Name"
-                    sx={{ margin: 2, width: "45%" }}
+                    sx={{ margin: 2, width: !media ? "100%" : "45%" }}
                     {...register("lastname")}
                 />
 
@@ -69,7 +86,7 @@ const PersonalInfo = () => {
                     multiline
                     rows={1.5}
                     label="Email"
-                    sx={{ margin: 2, width: "45%" }}
+                    sx={{ margin: 2, width: !media ? "100%" : "45%" }}
                     {...register("email")}
                 />
 
@@ -78,7 +95,7 @@ const PersonalInfo = () => {
                     multiline
                     rows={1.5}
                     label="Address"
-                    sx={{ margin: 2, width: "45%" }}
+                    sx={{ margin: 2, width: !media ? "100%" : "45%" }}
                     {...register("address")}
                 />
 
@@ -88,12 +105,12 @@ const PersonalInfo = () => {
                     rows={1.5}
                     type="number"
                     label="Postal Code"
-                    sx={{ margin: 2, width: "45%" }}
+                    sx={{ margin: 2, width: !media ? "100%" : "45%" }}
                     {...register("postal_code")}
                     inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                 />
 
-                <TextField select fullWidth defaultValue="" rows={1.5} label="Sex" inputProps={register('sex')} sx={{ margin: 2, width: "45%" }} multiline >
+                <TextField select fullWidth defaultValue="" rows={1.5} label="Sex" inputProps={register('sex')} sx={{ margin: 2, width: !media ? "100%" : "45%" }} multiline >
                     {sexType.map((e) => (
                         <MenuItem key={e.value} value={e.value} >
                             {e.label}
@@ -101,7 +118,7 @@ const PersonalInfo = () => {
                     ))}
                 </TextField>
 
-                <TextField select fullWidth defaultValue="" rows={1.5} label="City" inputProps={register('sex')} sx={{ margin: 2, width: "45%" }} multiline >
+                <TextField select fullWidth defaultValue="" rows={1.5} label="City" inputProps={register('sex')} sx={{ margin: 2, width: !media ? "100%" : "45%" }} multiline >
                     {sexType.map((e) => (
                         <MenuItem key={e.value} value={e.value} >
                             {e.label}
@@ -109,7 +126,7 @@ const PersonalInfo = () => {
                     ))}
                 </TextField>
 
-                <TextField select fullWidth defaultValue="" rows={1.5} label="Country" inputProps={register('sex')} sx={{ margin: 2, width: "45%" }} multiline >
+                <TextField select fullWidth defaultValue="" rows={1.5} label="Country" inputProps={register('sex')} sx={{ margin: 2, width: !media ? "100%" : "45%" }} multiline >
                     {sexType.map((e) => (
                         <MenuItem key={e.value} value={e.value} >
                             {e.label}

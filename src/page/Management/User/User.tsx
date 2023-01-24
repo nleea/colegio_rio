@@ -46,7 +46,7 @@ function User() {
     );
 
     return (
-        <Box maxHeight={"100%"} minHeight={"60%"} marginTop={"1.5rem"} maxWidth={"90%"} margin="auto" overflow={"auto"}  >
+        <Box maxHeight={"100%"} minHeight={"60%"} marginTop={"1.5rem"} maxWidth={"100%"} margin="auto" overflow={"auto"}  >
             <Paper elevation={2} sx={{ borderRadius: "20px" }} >
 
                 {

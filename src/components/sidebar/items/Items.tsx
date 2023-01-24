@@ -14,11 +14,7 @@ const Items = ({ displaySidebar, itemData, closeHandlre, color = "#eaeced", path
     const location = useLocation();
 
 
-    useEffect(() => {
-        if (window.innerWidth < 500) {
-            closeHandlre()
-        }
-    }, [location.pathname])
+   
 
 
     if ('children' in itemData) {

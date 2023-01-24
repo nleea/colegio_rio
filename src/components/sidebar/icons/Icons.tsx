@@ -17,7 +17,7 @@ import TimelineIcon from '@mui/icons-material/Timeline';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SchoolIcon from '@mui/icons-material/School';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
-
+import { Close } from "@mui/icons-material";
 export {
     HomeOutlinedIcon as HomeIcon,
     WebOutlinedIcon as LayoutIcon,
@@ -37,5 +37,6 @@ export {
     TimelineIcon as Graphics,
     AdminPanelSettingsIcon as AdminPanel,
     SchoolIcon,
-    HistoryEduIcon
+    HistoryEduIcon,
+    Close
 };

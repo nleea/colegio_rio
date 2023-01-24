@@ -3,10 +3,11 @@ import {
     SidebarWrapper,
     SidebarLogoWrapper,
     SidebarLogo,
-    SidebarBrand,
+    SidebarBrand
 } from "@/components/sidebar/style/SideBarStyle";
 import BrandLogo from "../../assets/react.svg";
 import { SidebarItems } from "@/components/sidebar/items/SideBarItems";
+import { Close } from "../../components/sidebar/icons/Icons";
 
 export default function Sidebar({ displaySidebar, closeHandler }: { children?: any, displaySidebar: boolean, closeHandler: any; }) {
 
@@ -27,7 +28,8 @@ export default function Sidebar({ displaySidebar, closeHandler }: { children?: a
                             </SidebarBrand>
                         </SidebarLogo>
                     </SidebarLogoWrapper>
-                    <button onClick={closeHandler} >Close</button>
+                    <button onClick={closeHandler} ><Close></Close></button>
+                    <hr style={{ width: "100%", color: "black" }} />
                     <SidebarItems displaySidebar={displaySidebar} closeHandler={closeHandler} />
                 </SidebarWrapper>
             </SidebarContainer>
