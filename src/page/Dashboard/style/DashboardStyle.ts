@@ -9,7 +9,7 @@ export const Dashboard = style.div`
     grid-template-columns: ${({ display }: { display: any }) =>
       display ? "15rem 1fr 1fr" : "5.5rem 1fr 1fr"};
     grid-template-rows: 0.15fr 1fr 1fr;
-    height: 100vh;
+    
 
     @media(max-width:500px){
         grid-template-areas:

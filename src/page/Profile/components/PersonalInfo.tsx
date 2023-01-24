@@ -18,7 +18,7 @@ type FormValues = {
 
 
 const PersonalInfo = () => {
-    const [media, setMedia] = useState(true);
+    const [media, setMedia] = useState(window.innerWidth > 990);
 
 
     useEffect(() => {

@@ -4,7 +4,6 @@ import { Grid, Paper, Box, Divider, styled, ThemeProvider } from "@mui/material"
 import { BoxTheme } from "./themes/themes";
 import { AvatarProfile } from "./avatar/Avatar";
 import { RouterProfile } from "./routes/Routes.profile";
-import { Media } from "../../utils/media/media";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Profile() {
-    const [media, setMedia] = useState(true);
+    const [media, setMedia] = useState(window.innerWidth > 990);
 
 
     useEffect(() => {
@@ -32,8 +31,8 @@ export default function Profile() {
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }} style={{ height: '100%', width: "80%", margin: "auto" }} >
-            <Grid container spacing={2} height="100%" >
+        <Box sx={{ flexGrow: 1 }} style={{ height: '100%', width: "90%", margin: "auto" }} >
+            <Grid container spacing={2} height="auto" >
                 <Grid item xs={12} height="10%" >
                     <Item>Personal Information</Item>
                 </Grid>
@@ -46,7 +45,7 @@ export default function Profile() {
                         </Item>
                     </ThemeProvider>
                 </Grid>
-                <Grid item xs={media ? 9 : 12} height="90%" marginBottom={20} >
+                <Grid item xs={media ? 9 : 12} height="auto" marginBottom={20} >
                     <ThemeProvider theme={BoxTheme} >
                         <Item>
                             <Outlet />
