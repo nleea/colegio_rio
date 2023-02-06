@@ -27,8 +27,9 @@ export const GetAll = (url: string) => {
             try {
                 const token = localStorage.getItem('token')
                 dispatch(onLoad(true))
-                const resp = await instance.get("api/" + url, { method: "GET" });
-                setState(resp.data.users);
+                // instance.defaults.headers["Authorization"] = "Bearer " + token
+                const data = await fetch(`https://riodevcolegioprueba.000webhostapp.com/api/users`, { headers: { "Authorization": `Bearer 45|e2HaL5aNGmtCDqAR0KzAI8ygOd8mtHF0NiFNH0q5` } });
+                console.log(await data.json())
                 dispatch(onLoad(false))
             } catch (error: any) {
                 if (error.response) {

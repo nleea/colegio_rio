@@ -25,9 +25,7 @@ export const GetInfo = (url: string) => {
     useEffect(() => {
         const http = async () => {
             try {
-                const token = localStorage.getItem('token');
                 dispatch(onLoad(true));
-                instance.defaults.headers["Authorization"] = `Bearer ${token}`;
                 const resp = await instance.get("api/" + url, { method: "GET" });
                 setState(resp.data.users);
                 dispatch(onLoad(false));
