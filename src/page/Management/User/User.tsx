@@ -8,20 +8,20 @@ import { ProgressPolymorphys } from "../../../components/UI/ProgressPolymorphys"
 
 function User() {
 
-    const { state } = GetAll("users");
+    const { state } = GetAll("user");
 
     const columns = useMemo<MRT_ColumnDef<Person>[]>(
         () => [
             {
-                accessorKey: 'usuario',
+                accessorKey: 'username',
                 header: 'Usuario',
             },
             {
-                accessorKey: 'nombre',
+                accessorKey: 'personas.nombre',
                 header: 'Nombre',
             },
             {
-                accessorKey: 'apellido',
+                accessorKey: 'personas.apellido',
                 header: 'Apellido',
             },
             {
@@ -29,7 +29,7 @@ function User() {
                 header: 'Email',
             },
             {
-                accessorKey: 'telefonomovil',
+                accessorKey: 'personas.telefono',
                 header: 'Telefono',
             },
             {
@@ -37,7 +37,7 @@ function User() {
                 header: 'Estado',
             },
             {
-                accessorKey: 'fechanacimiento',
+                accessorKey: 'personas.fechanacimiento',
                 header: 'Fecha de nacimiento',
             },
 

@@ -5,7 +5,6 @@ export const resize = (viewPort: number = 500) => {
 
   useEffect(() => {
     window.addEventListener("resize", ChangeResize);
-    console.log("sss");
   }, []);
 
   const ChangeResize = () => {

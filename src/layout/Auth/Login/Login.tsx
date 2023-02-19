@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Container, Grid, Paper, Typography, TextField, InputAdornment, IconButton, Button } from "@mui/material";
-import { AccountCircle, VisibilityOff, Visibility } from "@mui/icons-material";
+import { AccountCircle, VisibilityOff, Visibility, Password } from "@mui/icons-material";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { AuthCustomHooks } from "../../../service/hooks/loginAuth";
 import { Inputs } from "./interfaces/Inputs";
@@ -14,11 +14,7 @@ export const Login = () => {
 
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-        const datas = new FormData();
-        datas.append("email", data.email);
-        datas.append("password", data.password)
-
-        await fetch('api/login', datas);
+        await fetch('auth/login', { email: data.email, password: data.password });
 
         if (!error) {
             reset();

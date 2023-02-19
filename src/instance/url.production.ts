@@ -1,3 +1,3 @@
 export const environt = {
-  url: "https://riodevcolegioprueba.000webhostapp.com/",
+  url: "http://localhost:4000/api/",
 };
