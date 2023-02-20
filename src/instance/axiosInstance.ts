@@ -8,21 +8,21 @@ const instance = axios.create({
   signal: controller.signal,
 });
 
-// instance.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem("token");
-//     config.headers.Authorzation = `Bearer ${token}`;
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
-// instance.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     console.log(error);
-//     Promise.reject(error);
-//   }
-// );
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.log(error);
+    Promise.reject(error);
+  }
+);
 
 export { instance, controller };

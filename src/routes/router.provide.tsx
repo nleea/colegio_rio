@@ -14,6 +14,7 @@ import ChangePassword from "@/page/Profile/components/ChangePassword";
 import PersonalInfo from "@/page/Profile/components/PersonalInfo";
 import Settings from "@/page/Profile/components/settings";
 
+import { instance } from "../instance/axiosInstance";
 
 export const Router = () => {
 
@@ -52,7 +53,11 @@ export const Router = () => {
                     children: [
                         {
                             path: "personal",
-                            element: <PersonalInfo />
+                            element: <PersonalInfo />,
+                            loader: async () => {
+                                const { data } = await instance.get("user/profile");
+                                return data.data;
+                            }
                         },
                         {
                             path: "change/password",

@@ -25,11 +25,8 @@ export const GetAll = (url: string) => {
     useEffect(() => {
         const http = async () => {
             try {
-                const token = localStorage.getItem('token')
                 dispatch(onLoad(true))
-                instance.defaults.headers["Authorization"] = "Bearer " + token;
                 const { data } = await instance.get(url);
-                console.log(data.data)
                 setState(data.data);
                 dispatch(onLoad(false))
             } catch (error: any) {

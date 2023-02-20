@@ -4,6 +4,7 @@ import { Grid, Paper, Box, Divider, styled, ThemeProvider } from "@mui/material"
 import { BoxTheme } from "./themes/themes";
 import { AvatarProfile } from "./avatar/Avatar";
 import { RouterProfile } from "./routes/Routes.profile";
+import { resize } from "../../service/hooks/size/resize";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -14,21 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Profile() {
-    const [media, setMedia] = useState(window.innerWidth > 990);
-
-
-    useEffect(() => {
-        window.addEventListener("resize", ChangeResize);
-    }, []);
-
-
-    const ChangeResize = () => {
-        if (window.innerWidth > 990) {
-            setMedia(true);
-        } else {
-            setMedia(false);
-        }
-    }
+    const { media } = resize(990);
 
     return (
         <Box sx={{ flexGrow: 1 }} style={{ height: '100%', width: "90%", margin: "auto" }} >
@@ -36,7 +23,7 @@ export default function Profile() {
                 <Grid item xs={12} height="10%" >
                     <Item>Personal Information</Item>
                 </Grid>
-                <Grid item xs={media ? 3 : 12} height="auto">
+                <Grid item xs={media ? 12 : 3} height="auto">
                     <ThemeProvider theme={BoxTheme} >
                         <Item>
                             <AvatarProfile />
@@ -45,7 +32,7 @@ export default function Profile() {
                         </Item>
                     </ThemeProvider>
                 </Grid>
-                <Grid item xs={media ? 9 : 12} height="auto" marginBottom={20} >
+                <Grid item xs={media ? 12 : 9} height="auto" marginBottom={20} >
                     <ThemeProvider theme={BoxTheme} >
                         <Item>
                             <Outlet />
