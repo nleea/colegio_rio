@@ -19,9 +19,13 @@ const AuthCustomHooks = () => {
   const fetch = useCallback(async (url: string, body: any) => {
     try {
       setLoad(true);
-      const { token, user } = await (await instance.post(url, body)).data.data;
+      const { token, user, resources } = await (
+        await instance.post(url, body)
+      ).data.data;
+
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
+      localStorage.setItem("menu", JSON.stringify(resources));
       setLoad(false);
     } catch (error: any) {
       if (error.response) {

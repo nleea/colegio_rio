@@ -14,7 +14,7 @@ export const Login = () => {
 
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-        await fetch('auth/login', { email: data.email, password: data.password });
+        await fetch('auth/login', { username: data.username, password: data.password });
 
         if (!error) {
             reset();
@@ -46,12 +46,12 @@ export const Login = () => {
                             <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: "40px" }}>
                                 <TextField
                                     id="standard-required"
-                                    label="Email"
+                                    label="Username"
                                     defaultValue=""
                                     variant="outlined"
-                                    type="email"
+                                    type="text"
                                     fullWidth={true}
-                                    {...register("email")}
+                                    {...register("username")}
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">

@@ -50,7 +50,6 @@ const PersonalInfo = () => {
 
     const { register, handleSubmit } = useForm<FormValues>({ defaultValues: loaderData });
     const onSubmit: SubmitHandler<FormValues> = data => {
-        console.log(data)
         fetch(`user/edit/${userId}`, data);
     };
 
