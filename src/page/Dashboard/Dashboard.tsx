@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MenuAppBar } from "@/layout/Navbar/Navbar";
 import SideBar from "@/layout/Sidebar/SideBar";
 import { Dashboard as DashboardContainer, SideBarContainer } from "./style/DashboardStyle";
 import { Media } from "@/utils/media/media";
 import { ProgressPolymorphys } from "@/components/UI/ProgressPolymorphys";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet, redirect } from "react-router-dom";
 import type { RootState } from "../../service/context/app/store";
 import { useSelector } from "react-redux";
 import "./style/dashboard.scss";
@@ -26,7 +26,7 @@ export const DashBoard = () => {
     };
 
     return (
-        <DashboardContainer display={+displaySidebar} >
+        <DashboardContainer display={+ displaySidebar} >
             <div className="navbar" >
                 <MenuAppBar handleSidebarDisplay={handleSidebarDisplay} displaySidebar={displaySidebar} />
                 {load && <ProgressPolymorphys type="linear" sx={{ width: '100%' }} child={true} />}
@@ -37,6 +37,7 @@ export const DashBoard = () => {
             <div className="main">
                 <Outlet />
             </div>
-        </DashboardContainer>
+        </DashboardContainer >
+
     )
 }

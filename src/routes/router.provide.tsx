@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, json, redirect, RouterProvider } from "react-router-dom";
 import { DashBoard } from "../page/Dashboard/Dashboard";
 import { Auth } from "../page/Auth/Auth";
 import { Login } from "../layout/Auth/Login/Login";
@@ -13,17 +13,25 @@ import Profile from "../page/Profile/Profile";
 import ChangePassword from "@/page/Profile/components/ChangePassword";
 import PersonalInfo from "@/page/Profile/components/PersonalInfo";
 import Settings from "@/page/Profile/components/settings";
-
+import { RouteGuard } from "@/components/RouterGuard/RouterGuard";
 import { instance } from "../instance/axiosInstance";
 
 export const Router = () => {
+
+    const { verify } = RouteGuard();
 
     const router = createBrowserRouter([
         {
             path: "/",
             element: <DashBoard />,
             errorElement: <h1>En produccion</h1>,
+            loader: async () => {
+                const token = localStorage.getItem("token")
 
+                const { valid } = await verify("auth/token/verify", token!)
+                if (!valid) return redirect("auth/login")
+                return null
+            },
             children: [
                 {
                     path: "administracion",

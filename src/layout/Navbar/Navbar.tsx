@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Box, Toolbar, Typography, MenuItem, Menu, Button } from "@mui/material";
 import { IconButton, MenuIcon, CloseIcon, UserIconConfig } from "@/components/navbar/icons/icons";
+import { ButtonMenu } from "@/components/navbar/items/buttonMenu";
 import { ThemeProvider } from "@mui/material/styles";
 import { ButtonTheme } from "@/components/navbar/theme/ButtonTheme";
 import { ProgressPolymorphys } from "@/components/UI/ProgressPolymorphys";
@@ -25,16 +26,11 @@ export function MenuAppBar({ handleSidebarDisplay, displaySidebar }: { handleSid
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" color='default' style={{ boxShadow: 'none', color: "black" }} >
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 0 }}
-                        onClick={handleSidebarDisplay}
-                    >
-                        {displaySidebar ? <CloseIcon className='animation-close' fontSize='large' /> : <MenuIcon className='animation-menu' fontSize='large' />}
-                    </IconButton>
+                    <ButtonMenu onClick={handleSidebarDisplay}  >
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </ButtonMenu>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Menu
                     </Typography>
