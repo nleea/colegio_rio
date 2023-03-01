@@ -13,7 +13,7 @@ import Profile from "../page/Profile/Profile";
 import ChangePassword from "@/page/Profile/components/ChangePassword";
 import PersonalInfo from "@/page/Profile/components/PersonalInfo";
 import Settings from "@/page/Profile/components/settings";
-import { RouteGuard } from "@/components/RouterGuard/RouterGuard";
+import { RouteGuard, RouteGuardComponent } from "@/components/RouterGuard/RouterGuard";
 import { instance } from "../instance/axiosInstance";
 
 export const Router = () => {
@@ -35,23 +35,29 @@ export const Router = () => {
             children: [
                 {
                     path: "administracion",
-                    element: <Management />,
+                    element: <RouteGuardComponent />,
                     children: [
                         {
-                            path: "colegio",
-                            element: <School />
-                        },
-                        {
-                            path: "modulos",
-                            element: <Module />
-                        },
-                        {
-                            path: "usuarios",
-                            element: <User />
-                        },
-                        {
-                            path: "roles",
-                            element: <Roles />
+                            path: "",
+                            element: <Management />,
+                            children: [
+                                {
+                                    path: "colegio",
+                                    element: <School />
+                                },
+                                {
+                                    path: "modulos",
+                                    element: <Module />
+                                },
+                                {
+                                    path: "usuarios",
+                                    element: <User />
+                                },
+                                {
+                                    path: "roles",
+                                    element: <Roles />
+                                }
+                            ]
                         }
                     ]
                 },

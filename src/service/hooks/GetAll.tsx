@@ -25,20 +25,20 @@ export const GetAll = (url: string) => {
     useEffect(() => {
         const http = async () => {
             try {
-                dispatch(onLoad(true))
+                dispatch(onLoad({ isLoad: true }))
                 const { data } = await instance.get(url);
                 setState(data.data);
-                dispatch(onLoad(false))
+                dispatch(onLoad({ isLoad: false }))
             } catch (error: any) {
                 if (error.response) {
                     setError({ data: error.response.data, status: error.response.status });
-                    dispatch(onLoad(false))
+                    dispatch(onLoad({ isLoad: false }))
                 } else if (error.request) {
                     setError({ request: error.request });
-                    dispatch(onLoad(false))
+                    dispatch(onLoad({ isLoad: false }))
                 } else {
                     console.log("Error", error.message);
-                    dispatch(onLoad(false))
+                    dispatch(onLoad({ isLoad: false }))
                 }
             }
         }
