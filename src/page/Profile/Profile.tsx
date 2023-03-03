@@ -15,7 +15,27 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Profile() {
-    const { media } = resize(990);
+    const { media } = resize();
+
+    const mediaPruba: any = {
+        "MOBILE": {
+            "min": 12,
+            "max": 12
+        },
+        "TABLET": {
+            "min": 12,
+            "max": 12
+        },
+        "TABLET_LANSCAPE": {
+            "min": 12,
+            "max": 12
+        },
+        "DESKTOP": {
+            "min": 3,
+            "max": 9
+        },
+    }
+
 
     return (
         <Box sx={{ flexGrow: 1 }} style={{ height: '100%', width: "90%", margin: "auto" }} >
@@ -23,7 +43,7 @@ export default function Profile() {
                 <Grid item xs={12} height="10%" >
                     <Item>Personal Information</Item>
                 </Grid>
-                <Grid item xs={media ? 12 : 3} height="auto">
+                <Grid item xs={mediaPruba[media]?.min} height="auto">
                     <ThemeProvider theme={BoxTheme} >
                         <Item>
                             <AvatarProfile />
@@ -32,7 +52,7 @@ export default function Profile() {
                         </Item>
                     </ThemeProvider>
                 </Grid>
-                <Grid item xs={media ? 12 : 9} height="auto" marginBottom={20} >
+                <Grid item xs={mediaPruba[media]?.max} height="auto" marginBottom={20} >
                     <ThemeProvider theme={BoxTheme} >
                         <Item>
                             <Outlet />

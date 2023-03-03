@@ -6,9 +6,10 @@ import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 import { Person } from "./data";
 import { ProgressPolymorphys } from "../../../components/UI/ProgressPolymorphys";
 
+
 function User() {
 
-    const { state } = GetAll("user");
+    const { state } = GetAll<Person>("user");
 
     const columns = useMemo<MRT_ColumnDef<Person>[]>(
         () => [

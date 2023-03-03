@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { instance, controller } from "../../instance/axiosInstance";
-import { Person } from "../../page/Management/User/data";
+
 import { useDispatch } from "react-redux";
 import { onLoad } from "../context/features/load";
 
@@ -15,11 +15,11 @@ interface ErrorRequest {
 
 type interfaceError = ErrorResponse | ErrorRequest;
 
-export const GetAll = (url: string) => {
+export const GetAll = <T extends any>(url: string) => {
 
     const dispatch = useDispatch();
 
-    const [state, setState] = useState<Person[]>();
+    const [state, setState] = useState<T[]>();
     const [error, setError] = useState<interfaceError>();
 
     useEffect(() => {

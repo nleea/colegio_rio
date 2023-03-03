@@ -1,17 +1,30 @@
 import { useState, useEffect } from "react";
+import {
+  DESKTOP_VIEW,
+  MOBILE_VIEW,
+  MOBILE_VIEW_LANDSCAPE,
+  TABLE_VIEW,
+  TABLE_VIEW_LANDSCAPE,
+} from "@/utils/media/media";
 
-export const resize = (viewPort: number = 500) => {
-  const [media, setMedia] = useState(window.innerWidth < viewPort);
+export const resize = (p = 0) => {
+  const [media, setMedia] = useState("MOBILE");
 
   useEffect(() => {
     window.addEventListener("resize", ChangeResize);
   }, []);
 
-  const ChangeResize = () => {
-    if (window.innerWidth < viewPort) {
-      setMedia(true);
-    } else {
-      setMedia(false);
+  const ChangeResize = (e: any) => {
+    const viewPort = window.screen.availWidth;
+
+    if (viewPort >= MOBILE_VIEW && viewPort <= MOBILE_VIEW_LANDSCAPE) {
+      setMedia("MOBILE");
+    } else if (viewPort >= MOBILE_VIEW_LANDSCAPE && viewPort <= TABLE_VIEW) {
+      setMedia("TABLET");
+    } else if (viewPort >= TABLE_VIEW && viewPort <= TABLE_VIEW_LANDSCAPE) {
+      setMedia("TABLET_LANDSCAPE");
+    } else if (viewPort >= TABLE_VIEW_LANDSCAPE && viewPort >= DESKTOP_VIEW) {
+      setMedia("DESKTOP");
     }
   };
 
