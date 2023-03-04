@@ -14,7 +14,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
 }
 

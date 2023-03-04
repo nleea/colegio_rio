@@ -19,15 +19,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 export function Dashboard() {
-    const { media } = resize(1900);
+    const { media } = resize();
 
     return (
-        <Container>
-            <Box>
+        <Container maxWidth="xl" >
+            <Box  >
                 <Grid container spacing={2}>
-                    <Grid  item xs={media ? 12 : 12}>
-                        <Item className="content" sx={ { display: "flex", flexWrap: "wrap",} } > 
-                            <CardUi /> 
+                    <Grid item xs={12}>
+                        <Item  sx={{ display: "flex", flexWrap: "wrap", }} >
+                            <CardUi />
                             <CardUi />
                             <CardUi />
                             <CardUi />

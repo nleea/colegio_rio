@@ -15,7 +15,7 @@ function User() {
         () => [
             {
                 accessorKey: 'username',
-                header: 'Usuario',
+                header: 'Usuario'
             },
             {
                 accessorKey: 'personas.nombre',
