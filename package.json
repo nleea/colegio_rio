@@ -28,7 +28,7 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@mui/x-data-grid": "^5.17.20",
+    "@mui/x-data-grid": "^6.0.0",
     "@mui/x-data-grid-generator": "^5.17.26",
     "@mui/x-date-pickers": "^5.0.19",
     "@types/react": "^18.0.26",

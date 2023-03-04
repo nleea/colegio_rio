@@ -3,4 +3,5 @@ export type Person = {
   username: string;
   email: string;
   estado: string;
+  roles?: any;
 };
