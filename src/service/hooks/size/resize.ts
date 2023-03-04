@@ -12,9 +12,10 @@ export const resize = (p = 0) => {
 
   useEffect(() => {
     window.addEventListener("resize", ChangeResize);
+    ChangeResize();
   }, []);
 
-  const ChangeResize = (e: any) => {
+  const ChangeResize = () => {
     const viewPort = window.screen.availWidth;
 
     if (viewPort >= MOBILE_VIEW && viewPort <= MOBILE_VIEW_LANDSCAPE) {

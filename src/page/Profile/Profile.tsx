@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Grid, Paper, Box, Divider, styled, ThemeProvider } from "@mui/material";
 import { BoxTheme } from "./themes/themes";
@@ -17,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Profile() {
     const { media } = resize();
 
-    const mediaPruba: any = {
+    const BreakPoint: any = {
         "MOBILE": {
             "min": 12,
             "max": 12
@@ -26,7 +25,7 @@ export default function Profile() {
             "min": 12,
             "max": 12
         },
-        "TABLET_LANSCAPE": {
+        "TABLET_LANDSCAPE": {
             "min": 12,
             "max": 12
         },
@@ -36,14 +35,13 @@ export default function Profile() {
         },
     }
 
-
     return (
         <Box sx={{ flexGrow: 1 }} style={{ height: '100%', width: "90%", margin: "auto" }} >
             <Grid container spacing={2} height="auto" >
                 <Grid item xs={12} height="10%" >
                     <Item>Personal Information</Item>
                 </Grid>
-                <Grid item xs={mediaPruba[media]?.min} height="auto">
+                <Grid item xs={BreakPoint[media]?.min} height="auto">
                     <ThemeProvider theme={BoxTheme} >
                         <Item>
                             <AvatarProfile />
@@ -52,7 +50,7 @@ export default function Profile() {
                         </Item>
                     </ThemeProvider>
                 </Grid>
-                <Grid item xs={mediaPruba[media]?.max} height="auto" marginBottom={20} >
+                <Grid item xs={BreakPoint[media]?.max} height="auto" marginBottom={10} >
                     <ThemeProvider theme={BoxTheme} >
                         <Item>
                             <Outlet />
