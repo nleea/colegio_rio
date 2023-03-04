@@ -19,7 +19,6 @@ export const counterSlice = createSlice({
       state.isLoad = action.payload.isLoad!;
     },
     isAuth: (state, action: PayloadAction<Partial<Istore>>) => {
-      console.log(action.payload);
       state.isAuth = action.payload.isAuth!;
     },
   },

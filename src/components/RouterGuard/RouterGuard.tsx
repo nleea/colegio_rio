@@ -23,7 +23,6 @@ export const RouteGuardComponent = () => {
     const { verify } = RouteGuard();
 
     useEffect(() => {
-        console.log("entro")
         const d = async () => {
             await verify("auth/token/verify", localStorage.getItem("token")!);
         }

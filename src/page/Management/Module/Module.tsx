@@ -1,5 +1,7 @@
+import { Table } from "@/components/UI/table/Table";
+
 export const Module = () => {
     return (
-        <div>Module</div>
+        <Table />
     )
 }

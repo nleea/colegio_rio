@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MenuAppBar } from "@/layout/Navbar/Navbar";
 import SideBar from "@/layout/Sidebar/SideBar";
 import { Dashboard as DashboardContainer, SideBarContainer } from "./style/DashboardStyle";
-import { Media } from "@/utils/media/media";
+//import { Media } from "@/utils/media/media";
 import { ProgressPolymorphys } from "@/components/UI/ProgressPolymorphys";
 import { Navigate, Outlet, redirect } from "react-router-dom";
 import type { RootState } from "../../service/context/app/store";
@@ -11,7 +11,7 @@ import "./style/dashboard.scss";
 
 export const DashBoard = () => {
 
-    const [displaySidebar, setDisplaySidebar] = useState(!Media);
+    const [displaySidebar, setDisplaySidebar] = useState(true);
     const [displaySidebareltive, setDisplaySidebarRelative] = useState(false);
     const load = useSelector((state: any) => state.isLoad.isLoad);
 
@@ -34,7 +34,7 @@ export const DashBoard = () => {
             <SideBarContainer show={displaySidebareltive} >
                 <SideBar displaySidebar={displaySidebar} closeHandler={handleSidebarDisplay} />
             </SideBarContainer>
-            <div className="main">
+            <div className="main" style={{ height: "90vh" }} >
                 <Outlet />
             </div>
         </DashboardContainer >
