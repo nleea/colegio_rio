@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Navigate, Outlet, redirect } from "react-router-dom";
 import { instance } from "../../instance/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ export const RouteGuard = () => {
 
 
 export const RouteGuardComponent = () => {
-    const auth = useSelector((store: any) => store.isLoad.isAuth);
+    const auth = useSelector((store: any) => store.store.isAuth);
 
     const { verify } = RouteGuard();
 
@@ -30,7 +30,7 @@ export const RouteGuardComponent = () => {
         return () => {
             d();
         }
-    },[]);
+    }, []);
 
     return auth ? <Outlet /> : <Navigate replace to={"/auth/login"} ></Navigate>
 }

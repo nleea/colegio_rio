@@ -19,7 +19,7 @@ export const Module = () => {
     const { state } = GetAll<Iresponse>("/modulos");
     type response = Iresponse & Irol;
     let flatData: response[] = [];
-    const load = useSelector((s: RootState) => s.isLoad.isLoad)
+    const load = useSelector((s: RootState) => s.store.isLoad)
 
     state?.forEach((e) => {
         e.modulos_has_role.forEach((c) => {

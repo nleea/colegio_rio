@@ -3,7 +3,7 @@ import Isload from "../features/load";
 
 export const store = configureStore({
     reducer: {
-        isLoad: Isload,
+        store: Isload,
     },
 })
 
