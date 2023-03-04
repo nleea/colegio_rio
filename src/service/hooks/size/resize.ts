@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 export const resize = (viewPort: number = 500) => {
   const [media, setMedia] = useState(window.innerWidth < viewPort);
 
+  const [mediaChild, setMediaChild] = useState(false);
+
   useEffect(() => {
     window.addEventListener("resize", ChangeResize);
   }, []);
@@ -15,5 +17,6 @@ export const resize = (viewPort: number = 500) => {
     }
   };
 
-  return { media };
+
+  return { media, mediaChild };
 };
