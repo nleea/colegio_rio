@@ -24,7 +24,6 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '80%',
-    height: '80%',
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 5,
@@ -36,7 +35,7 @@ export function CardUi() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    
+
     const { media } = resize();
 
     const breackPoint: any = {
@@ -59,20 +58,18 @@ export function CardUi() {
     }
 
     useEffect(() => {
-        console.log( media )
+        console.log(media)
 
-    }, [ media ])
+    }, [media])
 
     return (
         <>
-            <Card sx={{ minWidth: media === 'MOBILE' ?  '90%' :  media === 'TABLET_LANDSCAPE' ? '50%' :  media === 'DESKTOP' ? '30%' : '10%'  , m: 2 }}>
+            <Card sx={{ minWidth: media === 'MOBILE' ? '90%' : media === 'TABLET' ? '90%' : media === 'TABLET_LANDSCAPE' ? "90%" : media === 'DESKTOP' ? '30%' : '10%', m: 2 }}>
                 <CardContent sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         Total 5 usuarios
                     </Typography>
-
                     <AvatarUi />
-
                 </CardContent>
                 <CardActions>
                     <Typography variant="body2" color="text.secondary">
@@ -107,20 +104,15 @@ export function CardUi() {
                     <Box
                         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
                     >
-                        <Button variant="contained" color="success" sx={{ my: 3, mx: 3 }}>
+                        <Button variant="contained" color="success" sx={{ my: 3, mx: 3,}}>
                             Guardar
                         </Button>
-                        <Button variant="contained" color="inherit" sx={{ my: 3, mx: 3 }} onClick={handleClose}>
+                        <Button variant="contained" color="inherit" sx={{ my: 3, mx: 3,}} onClick={handleClose}>
                             Cancelar
                         </Button>
                     </Box>
                 </Box>
             </Modal>
         </>
-        // <Grid container spacing={2}>
-        //     <Grid item xs={media ? 12 : 4}>
-
-        //     </Grid>
-        // </Grid>
     );
 }

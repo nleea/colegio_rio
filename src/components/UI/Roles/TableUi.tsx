@@ -76,7 +76,7 @@ export function TableUi() {
                 rowsPerPageOptions={[5]}
                 checkboxSelection
                 disableSelectionOnClick
-                experimentalFeatures={{ newEditingApi: false }}
+                experimentalFeatures={{ newEditingApi: true  }}
             />
         </Box>
     );
