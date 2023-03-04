@@ -1,3 +1,5 @@
+import { Dashboard } from "@/components/UI/Roles/Dashboard"
+
 import { Table } from "@/components/UI/table/Table";
 import { GetAll } from "@/service/hooks/GetAll";
 import { Person } from "@/page/Management/User/data";
