@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -36,15 +36,36 @@ export function CardUi() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     
-    const { media } = resize(900);
+    const { media } = resize();
 
-    const { media: mediaTable } = resize(700);
+    const breackPoint: any = {
+        "MOBILE": {
+            "min": 12,
+            "max": 12
+        },
+        "TABLET": {
+            "min": 12,
+            "max": 12
+        },
+        "TABLET_LANDSCAPE": {
+            "min": 12,
+            "max": 12
+        },
+        "DESKTOP": {
+            "min": 3,
+            "max": 9
+        },
+    }
+
+    useEffect(() => {
+        console.log( media )
+
+    }, [ media ])
 
     return (
         <>
-            <Card sx={{ minWidth: media ? mediaTable ? "90%": "40%" : "30%", m: 2 }}>
+            <Card sx={{ minWidth: media === 'MOBILE' ?  '90%' :  media === 'TABLET_LANDSCAPE' ? '50%' :  media === 'DESKTOP' ? '30%' : '10%'  , m: 2 }}>
                 <CardContent sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         Total 5 usuarios

@@ -10,8 +10,6 @@ import {
 export const resize = (p = 0) => {
   const [media, setMedia] = useState("MOBILE");
 
-  const [mediaChild, setMediaChild] = useState(false);
-
   useEffect(() => {
     window.addEventListener("resize", ChangeResize);
   }, []);
@@ -31,5 +29,5 @@ export const resize = (p = 0) => {
   };
 
 
-  return { media, mediaChild };
+  return { media };
 };
