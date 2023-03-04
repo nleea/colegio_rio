@@ -13,7 +13,7 @@ export const DashBoard = () => {
 
     const [displaySidebar, setDisplaySidebar] = useState(true);
     const [displaySidebareltive, setDisplaySidebarRelative] = useState(false);
-    const load = useSelector((state: any) => state.isLoad.isLoad);
+    const load = useSelector((state: RootState) => state.store.isLoad);
 
     const handleSidebarDisplay = (e: any) => {
         //e.preventDefault();

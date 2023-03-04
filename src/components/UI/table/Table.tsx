@@ -1,8 +1,7 @@
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import { TableBox } from "./theme/theme";
 import { DataGrid } from "@mui/x-data-grid";
-import { GetAll } from "@/service/hooks/GetAll";
-//{ field: 'name', headerName: 'Name', width: 300 }
+
 
 interface ColumnType {
     field: string;
@@ -11,51 +10,26 @@ interface ColumnType {
 }
 
 
-export const Table = () => {
+export const Table = ({ data: d, visible_fields, load = false }: { data: any, visible_fields: any, load?: boolean }) => {
 
-    const { state } = GetAll("/modulos")
+    const VISIBLE_FIELDS = visible_fields;
 
-    useEffect(() => {
-        console.log(state)
-    }, [])
-
-    const VISIBLE_FIELDS = ['name', 'name1'];
-
-    const columnsData: Array<ColumnType> = [
-        { field: 'name', headerName: 'Name', width: 300 },
-        { field: 'name1', headerName: 'Name1', width: 300 },
-        { field: 'name2', headerName: 'Name2', width: 300 }
-    ]
+    const columnsData: ColumnType[] = VISIBLE_FIELDS!.map((e: string) => {
+        return { field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: 300 }
+    });
 
     const data = {
-        rows: [
-            {
-                id: "ss",
-                name: "sss",
-                name1: "sss"
-            },
-            {
-                id: "1",
-                name: "sss",
-                name1: "sss"
-            },
-            {
-                id: "2",
-                name: "sss",
-                name1: "sss"
-            }
-        ]
+        rows: d ? d : []
     }
 
-
-    const columns = useMemo(
-        () => columnsData.filter((column: any) => VISIBLE_FIELDS.includes(column.field)),
+    const columns: ColumnType[] = useMemo(
+        () => columnsData.filter((column) => VISIBLE_FIELDS!.includes(column!.field as any)),
         [columnsData],
     );
 
     return (
         <TableBox>
-            <DataGrid  {...data} columns={columns} />
+            <DataGrid  {...data} columns={columns} checkboxSelection filterMode="client" loading={load} />
         </TableBox>
     )
 }
