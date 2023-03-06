@@ -1,6 +1,8 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { TableBox, RolComponent } from "./theme/theme";
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowParams, GridColTypeDef } from "@mui/x-data-grid";
+import { Edit } from '@mui/icons-material';
+import { WrapperEditIcon } from "./theme/theme";
 
 interface ColumnType {
     field: string;
@@ -19,11 +21,16 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
             ExtrasActions = {
                 renderCell: (params: GridRenderCellParams) => {
                     if (typeof (params.value) === typeof ([])) {
-                        return params.value.map((c: any, index: any) => {
-                            return <RolComponent key={index}>
-                                {c}
-                            </RolComponent>
-                        })
+                        return (
+                            <WrapperEditIcon>
+                                {params.value.map((c: any, index: any) => {
+                                    return <RolComponent key={index}>
+                                        {c}
+                                    </RolComponent>
+                                })}
+                                <Edit />
+                            </WrapperEditIcon>
+                        )
                     }
                     return (
                         <RolComponent>
@@ -33,7 +40,6 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
                 },
                 width: 300,
                 editable: true
-
             } as a
         }
         return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: ExtrasActions.width ? ExtrasActions.width : 300 } as a
@@ -52,7 +58,6 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
         <>
             <TableBox>
                 <DataGrid onCellClick={(e) => {
-
                     if (e.field === "rol" && modalOpen && setViewData) {
                         modalOpen()
                         setViewData(e.value)

@@ -56,7 +56,7 @@ export const Module = () => {
                 load={load} modalOpen={() => setOpen(true)} setViewData={(e) => setViewData(e)} />
 
             <ViewModal open={open} closeHandler={closeHandler} >
-                <ModulesEdit viewData={viewData} />
+                <ModulesEdit viewData={viewData} visible_fields={["id", "name", "ver"]} />
             </ViewModal>
         </>
     )

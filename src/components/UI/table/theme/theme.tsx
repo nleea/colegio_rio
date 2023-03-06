@@ -46,5 +46,25 @@ margin: 0 5px;
 
 `;
 
-export { TableBox, RolComponent }
+const WrapperEditIcon = Style.div`
+display:flex;
+flex-direction: row;
+width: 100%;
+padding: auto;
+
+& svg {
+    visibility:hidden;
+}
+
+&:hover {
+    svg{
+        visibility:visible;
+        display: relative;
+        height: 20px;
+    }
+}
+
+`;
+
+export { TableBox, RolComponent, WrapperEditIcon }
 
