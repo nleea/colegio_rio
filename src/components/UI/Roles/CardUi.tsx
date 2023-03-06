@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -15,7 +15,7 @@ import { AvatarUi } from './AvatarUi';
 import { TableUi } from './TableUi';
 
 import { resize } from '@/service/hooks/size/resize';
-import { Grid } from '@mui/material';
+
 
 
 const style = {
@@ -56,11 +56,6 @@ export function CardUi() {
             "max": 9
         },
     }
-
-    useEffect(() => {
-        console.log(media)
-
-    }, [media])
 
     return (
         <>
@@ -104,10 +99,10 @@ export function CardUi() {
                     <Box
                         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
                     >
-                        <Button variant="contained" color="success" sx={{ my: 3, mx: 3,}}>
+                        <Button variant="contained" color="success" sx={{ my: 3, mx: 3, }}>
                             Guardar
                         </Button>
-                        <Button variant="contained" color="inherit" sx={{ my: 3, mx: 3,}} onClick={handleClose}>
+                        <Button variant="contained" color="inherit" sx={{ my: 3, mx: 3, }} onClick={handleClose}>
                             Cancelar
                         </Button>
                     </Box>

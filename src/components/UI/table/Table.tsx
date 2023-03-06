@@ -1,6 +1,6 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { TableBox, RolComponent } from "./theme/theme";
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowParams, GridColTypeDef } from "@mui/x-data-grid";
 
 interface ColumnType {
     field: string;
@@ -8,11 +8,9 @@ interface ColumnType {
     width: number;
 }
 
+type a = ColumnType & GridColDef & GridColTypeDef;
 
-type a = ColumnType & GridColDef;
-
-export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = false }: { data: any, visible_fields: any, load?: boolean, checkboxSelect?: boolean }) => {
-
+export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = false, modalOpen, setViewData }: { data: any, visible_fields: any, load?: boolean, checkboxSelect?: boolean, modalOpen?: () => void, setViewData?: (data: any) => void }) => {
     const VISIBLE_FIELDS = visible_fields;
 
     const columnsData: a[] = VISIBLE_FIELDS!.map((e: string) => {
@@ -32,10 +30,13 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
                             {params.value}
                         </RolComponent>
                     )
-                }
+                },
+                width: 300,
+                editable: true
+
             } as a
         }
-        return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: 300 } as a
+        return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: ExtrasActions.width ? ExtrasActions.width : 300 } as a
     });
 
     const data = {
@@ -48,8 +49,16 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
     );
 
     return (
-        <TableBox>
-            <DataGrid  {...data} columns={columns} checkboxSelection={checkboxSelect} filterMode="server" loading={load} />
-        </TableBox>
+        <>
+            <TableBox>
+                <DataGrid onCellClick={(e) => {
+
+                    if (e.field === "rol" && modalOpen && setViewData) {
+                        modalOpen()
+                        setViewData(e.value)
+                    }
+                }}   {...data} columns={columns} checkboxSelection={checkboxSelect} filterMode="server" loading={load} />
+            </TableBox>
+        </>
     )
 }
