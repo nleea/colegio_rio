@@ -62,7 +62,7 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
                         modalOpen()
                         setViewData(e.value)
                     }
-                }}   {...data} columns={columns} checkboxSelection={checkboxSelect} filterMode="server" loading={load} />
+                }}   {...data} columns={columns} checkboxSelection={checkboxSelect} filterMode="server" loading={load}  style={{borderRadius:"0"}}/>
             </TableBox>
         </>
     )

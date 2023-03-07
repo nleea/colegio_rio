@@ -4,12 +4,12 @@ import { Box } from "@mui/material";
 
 const TableBox = Style(Box)`
 
-width:93%;
-height: 80%;
-margin: 20px auto;
+width:100%;
+height: 100%;
+margin: 20px auto 0 auto;
 background: white;
-box-shadow: box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 color: black;
+border-radius: 0;
 `;
 
 
