@@ -10,6 +10,11 @@ margin: 20px auto 0 auto;
 background: white;
 color: black;
 border-radius: 0;
+
+& .rol-cell{
+    cursor:pointer;
+}
+
 `;
 
 
@@ -43,7 +48,7 @@ padding-left: 10px;
 padding-right: 10px;
 white-space: nowrap;
 margin: 0 5px;
-
+cursor: pointer;
 `;
 
 const WrapperEditIcon = Style.div`
@@ -51,6 +56,7 @@ display:flex;
 flex-direction: row;
 width: 100%;
 padding: auto;
+
 
 & svg {
     visibility:hidden;

@@ -62,24 +62,29 @@ export const Router = () => {
                     ]
                 },
                 {
-                    path: "user/profile",
-                    element: <Profile />,
+                    element: <RouteGuardComponent />,
                     children: [
                         {
-                            path: "personal",
-                            element: <PersonalInfo />,
-                            loader: async () => {
-                                const { data } = await instance.get("user/profile");
-                                return data.data;
-                            }
-                        },
-                        {
-                            path: "change/password",
-                            element: <ChangePassword />
-                        },
-                        {
-                            path: "settings",
-                            element: <Settings />
+                            path: "user/profile",
+                            element: <Profile />,
+                            children: [
+                                {
+                                    path: "personal",
+                                    element: <PersonalInfo />,
+                                    loader: async () => {
+                                        const { data } = await instance.get("user/profile");
+                                        return data.data;
+                                    }
+                                },
+                                {
+                                    path: "change/password",
+                                    element: <ChangePassword />
+                                },
+                                {
+                                    path: "settings",
+                                    element: <Settings />
+                                }
+                            ]
                         }
                     ]
                 }

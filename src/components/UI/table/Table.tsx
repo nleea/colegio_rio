@@ -33,13 +33,17 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
                         )
                     }
                     return (
-                        <RolComponent>
-                            {params.value}
-                        </RolComponent>
+                        <WrapperEditIcon>
+                            <RolComponent>
+                                {params.value}
+                            </RolComponent>
+                            <Edit />
+                        </WrapperEditIcon>
                     )
                 },
                 width: 300,
-                editable: true
+                editable: true,
+                cellClassName: "rol-cell"
             } as a
         }
         return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: ExtrasActions.width ? ExtrasActions.width : 300 } as a
@@ -55,15 +59,15 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
     );
 
     return (
-        <>
-            <TableBox>
-                <DataGrid onCellClick={(e) => {
-                    if (e.field === "rol" && modalOpen && setViewData) {
-                        modalOpen()
-                        setViewData(e.value)
-                    }
-                }}   {...data} columns={columns} checkboxSelection={checkboxSelect} filterMode="server" loading={load}  style={{borderRadius:"0"}}/>
-            </TableBox>
-        </>
+
+        <TableBox>
+            <DataGrid onCellClick={(e) => {
+                if ((e.field === "rol" || e.field === "roles") && modalOpen && setViewData) {
+                    modalOpen()
+                    setViewData(e.value)
+                }
+            }}   {...data} columns={columns} checkboxSelection={checkboxSelect} filterMode="server" loading={load} style={{ borderRadius: "0" }} />
+        </TableBox>
+
     )
 }
