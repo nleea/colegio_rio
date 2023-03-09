@@ -9,4 +9,8 @@ font-size: ${({ fontSize }: { fontSize: number | string }) => fontSize};
 font-weight: ${({ weight = 400 }: { weight: number }) => weight};
 color: ${({ textColor }: { textColor: string }) => textColor};
 width: ${({ width }: { width: string | number }) => width};
+
+&:disabled {
+    background-color: gray;
+}
 `

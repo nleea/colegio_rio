@@ -1,5 +1,4 @@
 import { Router } from "@/routes/router.provide";
-
 import './App.css'
 
 function App() {

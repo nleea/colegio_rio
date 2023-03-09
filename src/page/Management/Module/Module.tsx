@@ -5,8 +5,10 @@ import { GetFetch } from "@/service/hooks/modules/getData";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/service/context/app/store";
 import { ViewModal } from "@/components/UI/modal/Modal";
-import { ModulesEdit } from "@/components/modules-edit/ModulesEdit";
+import { ModulesEdit } from "@/components/modules/ModulesEdit";
+import { ModulesAdd } from "@/components/modules/ModulesAdd";
 import { Button } from "@/components/UI/button/index";
+import { Toaster } from "react-hot-toast";
 
 interface Iresponse {
     name: string;
@@ -58,6 +60,7 @@ export const Module = () => {
 
     return (
         <>
+            <Toaster />
             <Box height="90%" sx={{ background: "white", display: "flex", flexDirection: "column", alignItems: "flex-end", alignContent: "flex-end" }}  >
                 <Button onClick={() => setOpenAddmodal(true)} >Add</Button>
                 <Table data={flatData} visible_fields={["id", "name", "rol", "path", "dependencia"]}
@@ -69,7 +72,7 @@ export const Module = () => {
             </ViewModal>
 
             <ViewModal open={openModalAdd} closeHandler={closeHandler} >
-                <ModulesEdit viewData={viewData} visible_fields={["id", "name", "ver"]} />
+                <ModulesAdd viewData={["Aministrador"]} visible_fields={["id", "name", "ver"]} />
             </ViewModal>
 
         </>

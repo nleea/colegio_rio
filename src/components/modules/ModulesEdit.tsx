@@ -5,7 +5,8 @@ import { Switch } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { PostFetch } from "@/service/hooks/modules/PostData";
 import { DeleteFetch } from "@/service/hooks/deleteData";
-
+import toast, { Toaster } from "react-hot-toast";
+import { Button } from "@/components/UI/button/index";
 
 interface ColumnType {
     field: string;
@@ -29,6 +30,7 @@ export function ModulesEdit({ viewData, visible_fields }: { viewData: any, visib
 
     const deleteRolHandler = async (e: any) => {
         await deleteFetch("modulos/delete/", { ...e, modulos: rolDeleteData });
+        toast("sss")
         onSubmit(e)
         setRolDelete([]);
     }
@@ -55,35 +57,36 @@ export function ModulesEdit({ viewData, visible_fields }: { viewData: any, visib
     );
 
     return (
-        <Box sx={{ height: 400, width: '100%' }}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <select {...register("rolName")}  >
-                    {
-                        viewData.map((c: string) => (
-                            <option value={c} key={c} >{c}</option>
-                        ))
-                    }
-                </select>
-
-                <input type="submit" />
-            </form>
-            <DataGrid
-                rows={renderData === undefined ? [] : rows}
-                columns={columns}
-                loading={isLoad}
-                onCellClick={(e) => {
-                    if (e.field === "ver") {
-                        if (e.row.id in rolDeleteData) {
-                            const newArrray = rolDeleteData.filter((c) => c !== e.row.id);
-                            setRolDelete(newArrray);
-                        } else {
-                            setRolDelete([...rolDeleteData, e.row.id])
+        <>
+            <Box sx={{ height: 400, width: '100%' }}>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <select {...register("rolName")}  >
+                        {
+                            viewData.map((c: string) => (
+                                <option value={c} key={c} >{c}</option>
+                            ))
                         }
-                    }
-                }}
-            />
+                    </select>
 
-            <button type="submit" onClick={handleSubmit(deleteRolHandler)} >Save</button>
-        </Box>
+                    <input type="submit" />
+                </form>
+                <DataGrid
+                    rows={renderData === undefined ? [] : rows}
+                    columns={columns}
+                    loading={isLoad}
+                    onCellClick={(e) => {
+                        if (e.field === "ver") {
+                            if (e.row.id in rolDeleteData) {
+                                const newArrray = rolDeleteData.filter((c) => c !== e.row.id);
+                                setRolDelete(newArrray);
+                            } else {
+                                setRolDelete([...rolDeleteData, e.row.id])
+                            }
+                        }
+                    }}
+                />
+                <Button type="submit" onClick={handleSubmit(deleteRolHandler)} disabled={rolDeleteData.length < 1} > Save </Button>
+            </Box>
+        </>
     );
 }
