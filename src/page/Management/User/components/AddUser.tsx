@@ -84,10 +84,8 @@ export const RegisterUsers = () => {
                 {
                     StaticData.usuario.map((data) => {
                         if (data.type === "select") {
-                            return <FormSelect name={data.field} key={data.field} onChange={(e) => {
-                                console.log(e.target.value)
-                                setSelect(e.target.value.toLowerCase() as keyof IstaticData)
-                            }}  >
+                            return <FormSelect name={data.field} key={data.field} onChange={(e) => setSelect(e.target.value.toLowerCase() as keyof IstaticData)}  >
+                                <option>Select a option</option>
                                 {
                                     data.options?.map((opt) => <option key={opt.name} value={opt.value} >{opt.name}</option>)
                                 }
@@ -97,7 +95,7 @@ export const RegisterUsers = () => {
                     })
                 }
                 {
-                    select ? StaticData[select].map((data) => <FormInputStyled {...register(data.field)} key={data.field} placeholder={data.label} type={data.type} />) : null
+                    select ? select in StaticData ? StaticData[select].map((data) => <FormInputStyled {...register(data.field)} key={data.field} placeholder={data.label} type={data.type} />) : null : null
                 }
 
             </FormStyled>
