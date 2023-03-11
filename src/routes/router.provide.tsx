@@ -15,6 +15,7 @@ import PersonalInfo from "@/page/Profile/components/PersonalInfo";
 import Settings from "@/page/Profile/components/settings";
 import { RouteGuard, RouteGuardComponent } from "@/components/RouterGuard/RouterGuard";
 import { instance } from "../instance/axiosInstance";
+import { Toaster } from "react-hot-toast";
 
 export const Router = () => {
 
@@ -102,6 +103,11 @@ export const Router = () => {
         }
     ]);
 
-    return <RouterProvider router={router} fallbackElement={<h1>En produccion</h1>} />
+    return (
+        <>
+            <Toaster position={"top-right"} />
+            <RouterProvider router={router} fallbackElement={<h1>En produccion</h1>} />
+        </>
+    )
 }
 

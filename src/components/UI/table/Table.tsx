@@ -41,9 +41,10 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
                         </WrapperEditIcon>
                     )
                 },
-                width: 300,
+                width: 500,
                 editable: true,
-                cellClassName: "rol-cell"
+                cellClassName: "rol-cell",
+                groupable: true
             } as a
         }
         return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: ExtrasActions.width ? ExtrasActions.width : 300 } as a

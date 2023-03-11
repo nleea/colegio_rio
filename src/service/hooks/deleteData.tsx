@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { instance } from "@/instance/axiosInstance";
+import { toast } from "react-hot-toast";
 
 interface ErrorResponse {
     data: any;
@@ -27,7 +28,7 @@ const DeleteFetch = () => {
             setLoad(false);
         } catch (error: any) {
             if (error.response) {
-                setError({ data: error.response.data, status: error.response.status });
+                setError({ data: error.response.data.data, status: error.response.status });
             } else if (error.request) {
                 setError({ request: error.request });
             } else {

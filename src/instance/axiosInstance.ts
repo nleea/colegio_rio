@@ -1,5 +1,6 @@
 import axios from "axios";
 import { environt } from "./url.production";
+import { toast } from "react-hot-toast";
 
 const controller = new AbortController();
 
@@ -14,14 +15,15 @@ instance.interceptors.request.use(
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    toast.error(error.response.data.data);
+  }
 );
 
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log(error);
-    Promise.reject(error);
+    toast.error(error.response.data.data);
   }
 );
 

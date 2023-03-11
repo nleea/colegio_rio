@@ -1,10 +1,10 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Box from '@mui/material/Box';
 import { DataGrid, GridRenderCellParams, GridColDef, GridColTypeDef } from '@mui/x-data-grid';
 import { Switch } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { PostFetch } from "@/service/hooks/modules/PostData";
-import { DeleteFetch } from "@/service/hooks/deleteData";
+import { GetAll } from "@/service/hooks/GetAll";
 import toast from "react-hot-toast";
 import { Button } from "@/components/UI/button/index";
 
@@ -14,26 +14,33 @@ interface ColumnType {
     width: number;
 }
 
+interface IrolResponse {
+    name: string;
+    users: Array<any>;
+    _count: any;
+    id: number
+}
+
 type a = ColumnType & GridColDef & GridColTypeDef;
 
-export const ModulesAdd = ({ viewData, visible_fields }: { viewData: any, visible_fields: any }) => {
-
+export const ModulesAdd = ({ visible_fields }: { visible_fields: any }) => {
+    const { state } = GetAll<IrolResponse>("/roles")
     const { data: renderData, isLoad, fetch } = PostFetch();
+    const { fetch: AddModulos, error } = PostFetch();
     const [rolAddData, setRolAdd] = useState<any[]>([]);
-    const { fetch: deleteFetch } = DeleteFetch();
     const { register, handleSubmit, control } = useForm();
-    const onSubmit = (data: any) => { fetch("modulos/roles/hash", data) };
-    const rows: any = renderData ? renderData[0].modulos_has_role : []
-
-    useEffect(() => {
-        fetch("modulos/roles/hash", { "rolName": viewData[0], inModule: true })
-    }, []);
+    const onSubmit = (data: any) => fetch("modulos/without/roles/", data);
+    const rows: any = renderData ? renderData : []
 
     const AddRolHandler = async (e: any) => {
-        //await deleteFetch("modulos/delete/", { ...e, modulos: rolAddData });
-        toast("sss")
-        onSubmit(e)
+        await AddModulos("modulos/roles/", { rolId: e.rolId, modulos: rolAddData });
         setRolAdd([]);
+        onSubmit(e)
+        if (!error) {
+            toast.success("Sucess")
+        } else {
+            toast.error(`${error}`)
+        }
     }
 
     const VISIBLE_FIELDS = visible_fields;
@@ -43,13 +50,11 @@ export const ModulesAdd = ({ viewData, visible_fields }: { viewData: any, visibl
         if (e === 'ver') {
             ExtrasActions = {
                 renderCell: (params: GridRenderCellParams) => {
-                    return <Controller control={control} name="switch" defaultValue={false} render={({ field }) => <Switch {...field} defaultChecked value={true} />} />
+                    return <Controller control={control} name="switch" defaultValue={false} render={({ field }) => <Switch {...field} defaultChecked={false} value={false} />} />
                 },
-                width: 300,
-                editable: true
             } as a
         }
-        return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: ExtrasActions.width ? ExtrasActions.width : 300 } as any
+        return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: 300 } as any
     });
 
     const columns: a[] = useMemo(
@@ -61,22 +66,22 @@ export const ModulesAdd = ({ viewData, visible_fields }: { viewData: any, visibl
         <>
             <Box sx={{ height: 400, width: '100%' }}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <select {...register("rolName")}  >
+                    <select {...register("rolId")} >
+                        <option>Select</option>
                         {
-                            viewData.map((c: string) => (
-                                <option value={c} key={c} >{c}</option>
-                            ))
+                            state?.map((c) => {
+                                return <option value={c.id} key={c.id} >{c.name}</option>
+                            })
                         }
                     </select>
 
                     <input type="submit" />
                 </form>
                 <DataGrid
-                    rows={renderData === undefined ? [] : rows}
+                    rows={rows}
                     columns={columns}
                     loading={isLoad}
                     onCellClick={(e) => {
-                        console.log(e)
                         if (e.field === "ver") {
                             if (e.row.id in rolAddData) {
                                 const newArrray = rolAddData.filter((c) => c !== e.row.id);

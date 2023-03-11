@@ -25,20 +25,20 @@ export const GetInfo = (url: string) => {
     useEffect(() => {
         const http = async () => {
             try {
-                dispatch(onLoad(true));
+                dispatch(onLoad({ isAuth: true }));
                 const resp = await instance.get("api/" + url, { method: "GET" });
                 setState(resp.data.users);
-                dispatch(onLoad(false));
+                dispatch(onLoad({ isAuth: true }));
             } catch (error: any) {
                 if (error.response) {
                     setError({ data: error.response.data, status: error.response.status });
-                    dispatch(onLoad(false))
+                    dispatch(onLoad({ isAuth: true }))
                 } else if (error.request) {
                     setError({ request: error.request });
-                    dispatch(onLoad(false))
+                    dispatch(onLoad({ isAuth: true }))
                 } else {
                     console.log("Error", error.message);
-                    dispatch(onLoad(false))
+                    dispatch(onLoad({ isAuth: true }))
                 }
             }
         }

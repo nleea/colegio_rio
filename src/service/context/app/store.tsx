@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import Isload from "../features/load";
+import GeneralContext from "../features/load";
 
 export const store = configureStore({
     reducer: {
-        store: Isload,
+        store: GeneralContext,
     },
-})
+});
 
 
 export type RootState = ReturnType<typeof store.getState>
