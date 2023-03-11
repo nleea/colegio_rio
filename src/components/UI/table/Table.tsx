@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { TableBox, RolComponent } from "./theme/theme";
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowParams, GridColTypeDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams, GridColTypeDef } from "@mui/x-data-grid";
 import { Edit } from '@mui/icons-material';
 import { WrapperEditIcon } from "./theme/theme";
 
@@ -47,7 +47,7 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
                 groupable: true
             } as a
         }
-        return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: 300 } as a
+        return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: ExtrasActions.width ? ExtrasActions.width : 300 } as a
     });
 
     const data = {
@@ -60,7 +60,6 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
     );
 
     return (
-
         <TableBox>
             <DataGrid onCellClick={(e) => {
                 if ((e.field === "rol" || e.field === "roles") && modalOpen && setViewData) {
@@ -69,6 +68,5 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
                 }
             }}   {...data} columns={columns} checkboxSelection={checkboxSelect} filterMode="server" loading={load} style={{ borderRadius: "0" }} />
         </TableBox>
-
     )
 }
