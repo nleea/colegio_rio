@@ -5,7 +5,10 @@ import { Login } from "../layout/Auth/Login/Login";
 import { Module } from "../page/Management/Module/Module";
 import { Roles } from "../page/Management/Roles/Roles";
 import { School } from "../page/Management/School/School";
+
 import { User } from "../page/Management/User/User";
+import { TableUser } from "@/page/Management/User/components/TableUser";
+import { RegisterUsers } from "@/page/Management/User/components/AddUser";
 import { Management } from "../page/Management/Index";
 
 import Profile from "../page/Profile/Profile";
@@ -52,7 +55,17 @@ export const Router = () => {
                                 },
                                 {
                                     path: "usuarios",
-                                    element: <User />
+                                    element: <User />,
+                                    children: [
+                                        {
+                                            path: "",
+                                            element: <TableUser />
+                                        },
+                                        {
+                                            path: "register",
+                                            element: <RegisterUsers />,
+                                        }
+                                    ]
                                 },
                                 {
                                     path: "roles",

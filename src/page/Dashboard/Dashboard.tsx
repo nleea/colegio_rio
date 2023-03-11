@@ -34,7 +34,7 @@ export const DashBoard = () => {
             <SideBarContainer show={displaySidebareltive} >
                 <SideBar displaySidebar={displaySidebar} closeHandler={handleSidebarDisplay} />
             </SideBarContainer>
-            <div className="main" style={{ height: "90vh" }} >
+            <div className="main" style={{ height: "100vh" }} >
                 <Outlet />
             </div>
         </DashboardContainer >

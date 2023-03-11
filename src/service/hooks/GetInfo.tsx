@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { instance, controller } from "../../instance/axiosInstance";
-import { Person } from "../../page/Management/User/data";
+import { Person } from "../../page/Management/User/components/data";
 import { useDispatch } from "react-redux";
 import { onLoad } from "../context/features/load";
 

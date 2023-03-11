@@ -47,7 +47,7 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
                 groupable: true
             } as a
         }
-        return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: ExtrasActions.width ? ExtrasActions.width : 300 } as a
+        return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: 300 } as a
     });
 
     const data = {

@@ -1,6 +1,6 @@
-import { useEffect, useState, useMemo, useId } from "react";
+import { useEffect, useMemo, useId } from "react";
 import Box from '@mui/material/Box';
-import { DataGrid, GridRenderCellParams, GridColDef, GridColTypeDef } from '@mui/x-data-grid';
+import { DataGrid, GridRenderCellParams, GridColDef, GridColTypeDef, GridCellParams, GridTreeNode } from '@mui/x-data-grid';
 import { Switch } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { PostFetch } from "@/service/hooks/modules/PostData";
@@ -18,26 +18,40 @@ type a = ColumnType & GridColDef & GridColTypeDef;
 
 export function ModulesEdit({ viewData, visible_fields }: { viewData: any, visible_fields: any }) {
     const { data: renderData, isLoad, fetch } = PostFetch();
-    const [rolDeleteData, setRolDelete] = useState<any[]>([]);
     const { fetch: deleteFetch, error } = DeleteFetch();
     const { register, handleSubmit, control } = useForm();
     const onSubmit = (data: any) => { fetch("modulos/roles/hash", data) };
     const rows: any = renderData ? renderData[0].modulos_has_role : []
+    let deleteRol: number[] = []
 
     useEffect(() => {
         fetch("modulos/roles/hash", { "rolName": viewData[0] })
     }, []);
 
     const deleteRolHandler = async (e: any) => {
-        //await deleteFetch("modulos/delete/", { ...e, modulos: rolDeleteData });
-        console.log(rolDeleteData)
+        await deleteFetch("modulos/delete/", { ...e, modulos: deleteRol });
         if (!error) {
             toast.success("Sucess")
         } else {
             toast.error(`${error}`)
         }
-        onSubmit(e)
-        setRolDelete([]);
+        onSubmit(e);
+        deleteRol = []
+    }
+
+    const AddColumnByDelete = (e: GridCellParams<any, unknown, unknown, GridTreeNode>) => {
+        const resulst = deleteRol.some((c) => c === e.row.id);
+        if (resulst) {
+            if (deleteRol.length === 1 && deleteRol[0] === e.row.id) {
+                deleteRol = []
+            } else {
+                const index = deleteRol.filter((c) => c !== e.row.id);
+                deleteRol = index;
+            }
+
+        } else {
+            deleteRol.push(e.row.id);
+        }
     }
 
     const VISIBLE_FIELDS = visible_fields;
@@ -79,18 +93,9 @@ export function ModulesEdit({ viewData, visible_fields }: { viewData: any, visib
                     rows={renderData === undefined ? [] : rows}
                     columns={columns}
                     loading={isLoad}
-                    onCellClick={(e) => {
-                        if (e.field === "ver") {
-                            if (e.row.id in rolDeleteData) {
-                                const newArrray = rolDeleteData.filter((c) => c !== e.row.id);
-                                setRolDelete(newArrray);
-                            } else {
-                                setRolDelete([...rolDeleteData, e.row.id])
-                            }
-                        }
-                    }}
+                    onCellClick={AddColumnByDelete}
                 />
-                <Button type="submit" onClick={handleSubmit(deleteRolHandler)} disabled={rolDeleteData.length < 1} > Save </Button>
+                <Button type="submit" onClick={handleSubmit(deleteRolHandler)}   > Save </Button>
             </Box>
         </>
     );

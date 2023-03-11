@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Grid } from "@mui/material";
 import { Table } from "@/components/UI/table/Table";
 import { GetAll } from "@/service/hooks/GetAll";
-import { Person } from "@/page/Management/User/data";
+import { Person } from "@/page/Management/User/components/data";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/service/context/app/store"
 import { Dashboard } from "@/components/UI/Roles/Dashboard";

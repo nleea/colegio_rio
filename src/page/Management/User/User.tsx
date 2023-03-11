@@ -1,72 +1,21 @@
-import { useMemo } from "react";
-
-import { Box, Paper } from "@mui/material";
-import { GetAll } from "../../../service/hooks/GetAll";
-import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import { Person } from "./data";
-import { ProgressPolymorphys } from "../../../components/UI/ProgressPolymorphys";
-
+import { Outlet, useLocation, Link } from "react-router-dom";
+import { Box } from "@mui/material";
+import { Button } from "@/components/UI/button/index";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function User() {
-
-    const { state } = GetAll<Person>("user");
-
-    const columns = useMemo<MRT_ColumnDef<Person>[]>(
-        () => [
-            {
-                accessorKey: 'username',
-                header: 'Usuario'
-            },
-            {
-                accessorKey: 'personas.nombre',
-                header: 'Nombre',
-            },
-            {
-                accessorKey: 'personas.apellido',
-                header: 'Apellido',
-            },
-            {
-                accessorKey: 'email',
-                header: 'Email',
-            },
-            {
-                accessorKey: 'personas.telefono',
-                header: 'Telefono',
-            },
-            {
-                accessorKey: 'estado',
-                header: 'Estado',
-            },
-            {
-                accessorKey: 'personas.fechanacimiento',
-                header: 'Fecha de nacimiento',
-            },
-
-        ],
-        [],
-    );
+    const { pathname } = useLocation();
 
     return (
-        <Box maxHeight={"100%"} minHeight={"60%"} marginTop={"1.5rem"} maxWidth={"100%"} margin="auto" overflow={"auto"}  >
-            <Paper elevation={2} sx={{ borderRadius: "20px" }} >
+        <>
+            <Box marginTop={"1.5rem"} marginBottom={"1rem"}
+                overflow={"auto"} color={"white"} display="flex" flexDirection="column" sx={{ background: "white", alignItems: pathname === "/administracion/usuarios" ? "flex-end" : "flex-start" }}>
+                {pathname === "/administracion/usuarios" ? <Button textColor="white" width="10%" > <Link to="register" >Registrar Usuarios</Link> </Button> :
+                    <Button width="60px" radius={3} > <Link to="/administracion/usuarios" ><ArrowBackIcon /></Link> </Button>}
+            </Box>
 
-                {
-                    state === undefined ? <ProgressPolymorphys type="circular" /> : <MaterialReactTable
-                        manualExpanding={true}
-                        columns={columns}
-                        data={state}
-                        enableColumnActions={true}
-                        enableColumnFilters={false}
-                        enablePagination={true}
-                        enableSorting={true}
-                        enableBottomToolbar={true}
-                        enableTopToolbar={true}
-                        muiTableBodyRowProps={{ hover: true }}
-                    />
-                }
-
-            </Paper>
-        </Box>
+            <Outlet />
+        </>
     );
 }
 

@@ -5,8 +5,8 @@ import { GetFetch } from "@/service/hooks/modules/getData";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/service/context/app/store";
 import { ViewModal } from "@/components/UI/modal/Modal";
-import { ModulesEdit } from "@/components/modules/ModulesEdit";
-import { ModulesAdd } from "@/components/modules/ModulesAdd";
+import { ModulesEdit } from "@/page/Management/Module/components/modules/ModulesEdit";
+import { ModulesAdd } from "@/page/Management/Module/components/modules/ModulesAdd";
 import { Button } from "@/components/UI/button/index";
 
 interface Iresponse {
