@@ -10,6 +10,7 @@ import { User } from "../page/Management/User/User";
 import { TableUser } from "@/page/Management/User/components/TableUser";
 import { RegisterUsers } from "@/page/Management/User/components/AddUser";
 import { Management } from "../page/Management/Index";
+import { TablaFuncionarios } from "@/page/Management/User/components/funcionarios/TableFuncionarios";
 
 import Profile from "../page/Profile/Profile";
 
@@ -58,8 +59,22 @@ export const Router = () => {
                                     element: <User />,
                                     children: [
                                         {
-                                            path: "",
-                                            element: <TableUser />
+                                            path: "estudiantes",
+                                            children: [
+                                                {
+                                                    path: "",
+                                                    element: <TableUser />
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            path: "funcionarios",
+                                            children: [
+                                                {
+                                                    path: "",
+                                                    element: <TablaFuncionarios />
+                                                }
+                                            ]
                                         },
                                         {
                                             path: "register",
@@ -69,7 +84,8 @@ export const Router = () => {
                                 },
                                 {
                                     path: "roles",
-                                    element: <Roles />
+                                    element: <Roles />,
+
                                 }
                             ]
                         }

@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { TableBox, RolComponent } from "./theme/theme";
-import { DataGrid, GridColDef, GridRenderCellParams, GridColTypeDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams, GridColTypeDef, GridToolbar, GridLogicOperator, GridToolbarQuickFilter } from "@mui/x-data-grid";
 import { Edit } from '@mui/icons-material';
 import { WrapperEditIcon } from "./theme/theme";
+import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 
 interface ColumnType {
     field: string;
@@ -11,6 +12,7 @@ interface ColumnType {
 }
 
 type a = ColumnType & GridColDef & GridColTypeDef;
+
 
 export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = false, modalOpen, setViewData }: { data: any, visible_fields: any, load?: boolean, checkboxSelect?: boolean, modalOpen?: () => void, setViewData?: (data: any) => void }) => {
     const VISIBLE_FIELDS = visible_fields;
@@ -44,10 +46,14 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
                 width: 500,
                 editable: true,
                 cellClassName: "rol-cell",
-                groupable: true
+                groupable: true,
             } as a
         }
-        return { ...ExtrasActions, field: e!, headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!, width: ExtrasActions.width ? ExtrasActions.width : 300 } as a
+        return {
+            ...ExtrasActions, field: e!, filterable: true,
+            headerName: e?.charAt(0).toUpperCase() + e?.slice(1)!,
+            width: ExtrasActions.width ? ExtrasActions.width : 300
+        } as a
     });
 
     const data = {
@@ -61,12 +67,17 @@ export const Table = ({ data: d, visible_fields, load = false, checkboxSelect = 
 
     return (
         <TableBox>
-            <DataGrid onCellClick={(e) => {
+            {/* <DataGrid onCellClick={(e) => {
                 if ((e.field === "rol" || e.field === "roles") && modalOpen && setViewData) {
                     modalOpen()
                     setViewData(e.value)
                 }
-            }}   {...data} columns={columns} checkboxSelection={checkboxSelect} filterMode="server" loading={load} style={{ borderRadius: "0" }} />
+            }}   {...data} columns={columns} checkboxSelection={checkboxSelect} filterMode="server"
+                loading={load} style={{ borderRadius: "0" }} slots={{ toolbar: GridToolbar }}
+                
+            /> */}
+
+            
         </TableBox>
     )
 }

@@ -5,6 +5,8 @@ import {
   SchoolIcon,
   WizardIcon,
   HistoryEduIcon,
+  BoyIcon,
+  CastForEducation,
 } from "@/components/sidebar/icons/Icons";
 
 export interface Imenu {
@@ -21,4 +23,6 @@ export const iconsMenu: any = {
   RolesIcon: RolesIcon,
   SchoolIcon: SchoolIcon,
   WizardIcon: WizardIcon,
+  BoyIcon: BoyIcon,
+  CastForEducation: CastForEducation,
 };

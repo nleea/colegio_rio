@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
-import { Table } from "@/components/UI/table/Table";
+import { Table } from "@/components/UI/table/table2";
 import { GetFetch } from "@/service/hooks/modules/getData";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/service/context/app/store";
@@ -59,10 +59,9 @@ export const Module = () => {
 
     return (
         <>
-            <Box height="90%" sx={{ background: "white", display: "flex", flexDirection: "column", alignItems: "flex-end", alignContent: "flex-end" }}  >
+            <Box height="auto" sx={{ background: "white", display: "flex", flexDirection: "column", alignItems: "flex-end", alignContent: "flex-end" }}  >
                 <Button onClick={() => setOpenAddmodal(true)} >Add</Button>
-                <Table data={flatData} visible_fields={["id", "name", "rol", "path", "dependencia"]}
-                    load={load} modalOpen={() => setOpen(true)} setViewData={(e) => setViewData(e)} />
+                <Table data={flatData} visible_fields={[{ header: "id", access: "id" }, { header: "name", access: "name" }, { header: "rol", access: "rol" }, { header: "path", access: "path" }, { header: "dependencia", access: "dependencia" }]} />
             </Box>
 
             <ViewModal open={open} closeHandler={closeHandler} >

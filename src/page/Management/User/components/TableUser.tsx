@@ -6,11 +6,11 @@ import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 import { Person } from "./data";
 import { ProgressPolymorphys } from "@/components/UI/ProgressPolymorphys";
 
-function TableUser() {
+function TableUser({ data, visible_fields }: { data: any, visible_fields: any }) {
 
     const { state } = GetAll<Person>("user");
 
-    const columns = useMemo<MRT_ColumnDef<Person>[]>(
+    const columns = useMemo<MRT_ColumnDef[]>(
         () => [
             {
                 accessorKey: 'username',
@@ -39,8 +39,10 @@ function TableUser() {
             {
                 accessorKey: 'personas.fechanacimiento',
                 header: 'Fecha de nacimiento',
+                Cell({ cell, column, row, table, }) {
+                    return <div>Hello</div>
+                },
             },
-
         ],
         [],
     );
