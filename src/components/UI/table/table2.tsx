@@ -5,7 +5,7 @@ import { WrapperEditIcon } from "./theme/theme";
 import { TableBox, RolComponent } from "./theme/theme";
 import { Edit } from '@mui/icons-material';
 
-function Table({ data, visible_fields }: { data?: any, visible_fields: any }) {
+function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visible_fields: any, modalOpen?: () => void, viewData?: (props: any) => void }) {
 
     const columnsData = visible_fields!.map((e: any) => {
         let ExtrasActions = {} as Partial<MRT_ColumnDef>;
@@ -36,20 +36,18 @@ function Table({ data, visible_fields }: { data?: any, visible_fields: any }) {
                 size: 500,
                 enableEditing: true,
                 enableGrouping: true,
-                Filter({ column, header, rangeFilterIndex, table, }) {
-                    return ""
-                },
+                muiTableBodyCellProps: ({ cell }) => ({
+                    onClick: () => {
+                        if (modalOpen) modalOpen();
+                        if (viewData) viewData(cell.getValue() as any);
+                    },
+                }),
             }
         }
         return {
             ...ExtrasActions,
             header: e.header.charAt(0).toUpperCase().concat(e.header.substring(1, e.length)),
             accessorKey: e.access,
-            muiTableBodyCellProps: ({ cell }) => ({
-                onClick: () => {
-                    console.log(cell.row);
-                },
-            }),
         } as MRT_ColumnDef
     });
 
@@ -76,10 +74,9 @@ function Table({ data, visible_fields }: { data?: any, visible_fields: any }) {
                     enableColumnOrdering={true}
                     muiTableBodyRowProps={{ hover: true }}
                     pageCount={15}
-                    enableRowActions={true}
+                    enableRowActions={false}
                 />
             }
-
         </TableBox>
 
     );

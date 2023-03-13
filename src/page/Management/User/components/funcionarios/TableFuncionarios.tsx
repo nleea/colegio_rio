@@ -5,16 +5,16 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/service/context/app/store"
 import { resize } from "@/service/hooks/size/resize";
 import { Table } from "@/components/UI/table/table2";
-import { GetFetch } from "@/service/hooks/modules/getData";
+import { PostFetch } from "@/service/hooks/modules/PostData";
+import { ViewModal } from "@/components/UI/modal/Modal";
 
 export const TablaFuncionarios = () => {
     const [open, setOpen] = useState(false);
     const [openModalAdd, setOpenAddmodal] = useState(false);
-    const [viewData, setViewData] = useState([])
-    const { fetch, data } = GetFetch();
+    const { fetch, data } = PostFetch();
 
     useEffect(() => {
-        fetch("user")
+        fetch("user", { type: "Estudiante", is: false })
     }, [])
 
     const { media } = resize();
@@ -43,18 +43,14 @@ export const TablaFuncionarios = () => {
         setOpenAddmodal(false);
     }
 
-
-    const flatData: any[] = [];
-
-    // data?.map((user) => {
-    //     flatData.push({ ...user, roles: user.roles.name })
-    // })
-
-
     return (
         <>
-            {/* <Table data={flatData} visible_fields={["id", "username", "roles", "email"]} load={isLoad} modalOpen={() => setOpen(true)} setViewData={(e) => setViewData(e)} /> */}
-            <Table visible_fields={[{ header: "id", access: "id" }, { header: "username", access: "username" }, { header: "email", access: "email" }, { header: "roles", access: "roles" }]} data={data} />
+            <Table visible_fields={[{ header: "id", access: "id" }, { header: "username", access: "username" }, { header: "email", access: "email" }, { header: "roles", access: "roles" }]}
+                data={data} />
+
+            <ViewModal closeHandler={closeHandler} open={open}   >
+
+            </ViewModal>
         </>
     )
 }

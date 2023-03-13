@@ -104,9 +104,7 @@ export const RegisterUsers = () => {
                 {
                     select ? select in StaticData ? StaticData[select].map((data) => <FormInputStyled {...register(data.field)} key={data.field} placeholder={data.label} type={data.type} />) : null : null
                 }
-
                 <Button type="submit">Save</Button>
-
             </FormStyled>
         </Paper>
 
