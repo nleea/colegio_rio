@@ -12,8 +12,8 @@ interface ErrorRequest {
 
 type interfaceError = ErrorResponse | ErrorRequest;
 
-const PostFetch = () => {
-    const [data, setData] = useState<any>();
+const PostFetch = <C extends any>() => {
+    const [data, setData] = useState<C>();
     const [isLoad, setLoad] = useState(false);
     const [error, setError] = useState<interfaceError>();
 

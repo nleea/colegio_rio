@@ -13,20 +13,20 @@ const SidebarItems = ({ displaySidebar, closeHandler }: { displaySidebar: any, c
 
         menuLocal.forEach((menuL) => {
             if (menuL.id_padre === 0) {
-                newMenu.push({ ...menuL, icon: iconsMenu[menuL.icon], children: [] })
+                newMenu.push({ ...menuL, icon: iconsMenu[menuL.icon], children: [], color: "#dbe4f3" })
             } else {
                 const index = newMenu.findIndex((m) => m.id === Number(menuL.id_padre));
                 if (index === -1) {
                     for (let i of newMenu) {
                         let childindex = i.children?.findIndex((m) => m.id === Number(menuL.id_padre))!;
                         if (i.children && childindex && i.children[childindex].children === undefined) {
-                            i.children?.splice(childindex, 1, { ...i.children[childindex], children: [] });
+                            i.children?.splice(childindex, 1, { ...i.children[childindex], children: [], color: "#dbe4f3" });
                             if ('children' in i.children![childindex]) {
-                                i.children![childindex].children.push({ ...menuL, icon: iconsMenu[menuL.icon] })
+                                i.children![childindex].children.push({ ...menuL, icon: iconsMenu[menuL.icon], color: "#dbe4f3" })
                             }
                         } else {
                             if ('children' in i.children![childindex]) {
-                                i.children![childindex].children.push({ ...menuL, icon: iconsMenu[menuL.icon] })
+                                i.children![childindex].children.push({ ...menuL, icon: iconsMenu[menuL.icon], color: "#dbe4f3" })
                             }
                         }
                     }

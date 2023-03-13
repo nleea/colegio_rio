@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
-import { Table } from "@/components/UI/table/Table";
-import { GetAll } from "@/service/hooks/GetAll";
+import { Table } from "@/components/UI/table/table2";
+import { PostFetch } from "@/service/hooks/modules/PostData";
 import { Person } from "@/page/Management/User/components/data";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/service/context/app/store"
@@ -9,10 +9,16 @@ import { Dashboard } from "@/components/UI/Roles/Dashboard";
 import { resize } from "@/service/hooks/size/resize";
 import { ViewModal } from "@/components/UI/modal/Modal";
 
+
 export const Roles = () => {
     const [open, setOpen] = useState(false);
     const [openModalAdd, setOpenAddmodal] = useState(false);
-    const [viewData, setViewData] = useState([])
+    const [viewData, setViewData] = useState([]);
+    const { data, fetch } = PostFetch<Person[]>();
+
+    useEffect(() => {
+        fetch("user", { type: "Estudiante", is: false })
+    }, [])
 
     const { media } = resize();
 
@@ -40,17 +46,6 @@ export const Roles = () => {
         setOpenAddmodal(false);
     }
 
-
-    const flatData: any[] = [];
-
-    const { state } = GetAll<Person>("user/");
-    const isLoad = useSelector((state: RootState) => state.store.isLoad)
-
-    state?.map((user) => {
-        flatData.push({ ...user, roles: user.roles.name })
-    })
-
-
     return (
         <>
             <Grid container height="100%" wrap="wrap">
@@ -59,7 +54,7 @@ export const Roles = () => {
                 </Grid>
 
                 <Grid item xs={BreakPoint[media].max} height="500px" maxWidth={"100%"}>
-                    <Table data={flatData} visible_fields={["id", "username", "roles", "email"]} load={isLoad} modalOpen={() => setOpen(true)} setViewData={(e) => setViewData(e)} />
+                    <Table data={data ? data : []} visible_fields={[{ header: "id", access: "id" }, { header: "username", access: "username" }, { header: "roles", access: "roles" }, { header: "email", access: "email" }]} modalOpen={() => setOpen(true)} />
                 </Grid>
             </Grid>
 

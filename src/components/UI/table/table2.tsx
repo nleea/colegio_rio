@@ -42,6 +42,8 @@ function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visi
                         if (viewData) viewData(cell.getValue() as any);
                     },
                 }),
+                filterVariant: "text",
+                columnFilterModeOptions: ['fuzzy', 'contains', 'startsWith', 'between', 'lessThan', 'greaterThan']
             }
         }
         return {
@@ -71,14 +73,14 @@ function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visi
                     enableBottomToolbar={true}
                     enableTopToolbar={true}
                     enableFilters={true}
-                    enableColumnOrdering={true}
+                    enableColumnOrdering={false}
                     muiTableBodyRowProps={{ hover: true }}
                     pageCount={15}
-                    enableRowActions={false}
+                    initialState={{ showColumnFilters: false }}
+                    enableColumnFilterModes
                 />
             }
         </TableBox>
-
     );
 }
 

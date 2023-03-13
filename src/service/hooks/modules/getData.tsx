@@ -2,6 +2,7 @@ import { instance } from "@/instance/axiosInstance";
 import { onLoad } from "@/service/context/features/load";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
+
 interface ErrorResponse {
     data: any;
     status: number;
@@ -17,7 +18,6 @@ const GetFetch = <C extends any>() => {
     const dispatch = useDispatch();
     const [data, setData] = useState<C>();
     const [error, setError] = useState<interfaceError>();
-
 
     const fetch = useCallback(async (url: string) => {
         try {
