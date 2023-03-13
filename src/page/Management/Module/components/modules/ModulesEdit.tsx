@@ -86,7 +86,6 @@ export function ModulesEdit({ viewData, visible_fields }: { viewData: any, visib
                             ))
                         }
                     </select>
-
                     <input type="submit" />
                 </form>
                 <DataGrid

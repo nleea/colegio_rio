@@ -61,7 +61,11 @@ export const Module = () => {
         <>
             <Box height="auto" sx={{ background: "white", display: "flex", flexDirection: "column", alignItems: "flex-end", alignContent: "flex-end" }}  >
                 <Button onClick={() => setOpenAddmodal(true)} >Add</Button>
-                <Table data={flatData} visible_fields={[{ header: "id", access: "id" }, { header: "name", access: "name" }, { header: "rol", access: "rol" }, { header: "path", access: "path" }, { header: "dependencia", access: "dependencia" }]} />
+                <Table data={flatData}
+                    visible_fields={[{ header: "id", access: "id" }, { header: "name", access: "name" }, { header: "rol", access: "rol" }, { header: "path", access: "path" }, { header: "dependencia", access: "dependencia" }]}
+                    modalOpen={() => setOpen(true)}
+                    viewData={(data) => setViewData(data)}
+                />
             </Box>
 
             <ViewModal open={open} closeHandler={closeHandler} >

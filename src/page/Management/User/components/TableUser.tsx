@@ -1,72 +1,33 @@
-import { useMemo } from "react";
+import { useState, useEffect } from "react";
+import { Table } from "@/components/UI/table/table2";
+import { PostFetch } from "@/service/hooks/modules/PostData";
+import { ViewModal } from "@/components/UI/modal/Modal";
 
-import { Paper } from "@mui/material";
-import { GetAll } from "@/service/hooks/GetAll";
-import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import { Person } from "./data";
-import { ProgressPolymorphys } from "@/components/UI/ProgressPolymorphys";
+function TableUser() {
 
-function TableUser({ data, visible_fields }: { data: any, visible_fields: any }) {
+    const [open, setOpen] = useState(false);
+    const [openModalAdd, setOpenAddmodal] = useState(false);
+    const { fetch, data } = PostFetch();
 
-    const { state } = GetAll<Person>("user");
+    useEffect(() => {
+        fetch("user", { type: "Estudiante", is: true })
+    }, [])
 
-    const columns = useMemo<MRT_ColumnDef[]>(
-        () => [
-            {
-                accessorKey: 'username',
-                header: 'Usuario'
-            },
-            {
-                accessorKey: 'personas.nombre',
-                header: 'Nombre',
-            },
-            {
-                accessorKey: 'personas.apellido',
-                header: 'Apellido',
-            },
-            {
-                accessorKey: 'email',
-                header: 'Email',
-            },
-            {
-                accessorKey: 'personas.telefono',
-                header: 'Telefono',
-            },
-            {
-                accessorKey: 'estado',
-                header: 'Estado',
-            },
-            {
-                accessorKey: 'personas.fechanacimiento',
-                header: 'Fecha de nacimiento',
-                Cell({ cell, column, row, table, }) {
-                    return <div>Hello</div>
-                },
-            },
-        ],
-        [],
-    );
+    const closeHandler = () => {
+        setOpen(false);
+        setOpenAddmodal(false);
+    }
 
     return (
 
-        <Paper elevation={1} sx={{ width: "100%" }} >
-            {
-                state === undefined ? <ProgressPolymorphys type="circular" /> : <MaterialReactTable
-                    manualExpanding={true}
-                    columns={columns}
-                    data={state}
-                    enableColumnActions={true}
-                    enableColumnFilters={false}
-                    enablePagination={true}
-                    enableSorting={true}
-                    enableBottomToolbar={true}
-                    enableTopToolbar={true}
-                    muiTableBodyRowProps={{ hover: true }}
-                    pageCount={15}
-                />
-            }
+        <>
+            <Table visible_fields={[{ header: "id", access: "id" }, { header: "username", access: "username" }, { header: "email", access: "email" }, { header: "roles", access: "roles" }]}
+                data={data} />
 
-        </Paper>
+            <ViewModal closeHandler={closeHandler} open={open}   >
+
+            </ViewModal>
+        </>
 
     );
 }
