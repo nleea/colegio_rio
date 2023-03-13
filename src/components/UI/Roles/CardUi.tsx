@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -15,6 +15,7 @@ import { AvatarUi } from './AvatarUi';
 import { TableUi } from './TableUi';
 
 import { resize } from '@/service/hooks/size/resize';
+import { GetFetch } from '@/service/hooks/modules/getData';
 
 
 
@@ -30,50 +31,48 @@ const style = {
 };
 
 
-export function CardUi() {
+export function CardUi({ dataRol }: { dataRol: any }) {
+
+    const { name, id, users, _count } = dataRol;
+
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const { media } = resize();
+    const { fetch, data } = GetFetch<any>();
 
-    const breackPoint: any = {
-        "MOBILE": {
-            "min": 12,
-            "max": 12
-        },
-        "TABLET": {
-            "min": 12,
-            "max": 12
-        },
-        "TABLET_LANDSCAPE": {
-            "min": 12,
-            "max": 12
-        },
-        "DESKTOP": {
-            "min": 3,
-            "max": 9
-        },
+    const getData = async () => {
+        await fetch(`/roles/edit/${id}`)
+        // console.log(data)
     }
+
+    const handleModal = () => {
+        handleOpen();
+        getData();
+    }
+
+
+
+    // console.log(data)
+    const { media } = resize();
 
     return (
         <>
             <Card sx={{ minWidth: media === 'MOBILE' ? '90%' : media === 'TABLET' ? '90%' : media === 'TABLET_LANDSCAPE' ? "90%" : media === 'DESKTOP' ? '30%' : '10%', m: 2 }}>
                 <CardContent sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Total 5 usuarios
+                        Total {_count.users} usuarios
                     </Typography>
                     <AvatarUi />
                 </CardContent>
                 <CardActions>
                     <Typography variant="body2" color="text.secondary">
-                        Administrador
-                        <br />
+                        {name}
                     </Typography>
                 </CardActions>
                 <CardActions>
-                    <Button size="small" onClick={handleOpen} >Editar rol</Button>
+                    <Button size="small" onClick={handleModal} >Editar rol</Button>
                 </CardActions>
             </Card>
 
@@ -95,7 +94,12 @@ export function CardUi() {
                         Editar permisos
                     </Typography>
 
-                    <TableUi />
+                    {
+                        data ? 
+                        <TableUi allPermisos={ data.permissions.data.data as any} hasPermisos={ data.rol.data[0].role_has_permissions as any} />
+                        :
+                        <p>Cargando</p>
+                    }
                     <Box
                         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
                     >
@@ -107,7 +111,7 @@ export function CardUi() {
                         </Button>
                     </Box>
                 </Box>
-            </Modal>
+                </Modal>
         </>
     );
 }

@@ -7,6 +7,8 @@ import Container from '@mui/material/Container';
 import { CardUi } from './CardUi';
 
 import { resize } from "../../../service/hooks/size/resize";
+import { GetFetch } from '@/service/hooks/modules/getData';
+import { useEffect } from 'react';
 // import { resize } from "@/service/hooks/size/resize";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -21,17 +23,23 @@ const Item = styled(Paper)(({ theme }) => ({
 export function Dashboard() {
     const { media } = resize();
 
+
+    const { fetch, data } = GetFetch<any>();
+
+    useEffect(() => {
+        fetch('/roles')
+    }, [])
+   
+
     return (
         <Container maxWidth="xl" >
             <Box  >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Item  sx={{ display: "flex", flexWrap: "wrap", }} >
-                            <CardUi />
-                            <CardUi />
-                            <CardUi />
-                            <CardUi />
-                            <CardUi />
+                            {
+                                data?.map( (rol:any) => <CardUi key={rol.id} dataRol={ rol } /> )
+                            }
                         </Item>
                     </Grid>
                 </Grid>

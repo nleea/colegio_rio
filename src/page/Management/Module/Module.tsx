@@ -56,6 +56,8 @@ export const Module = () => {
         })
     });
 
+    console.log( flatData)
+
 
     return (
         <>

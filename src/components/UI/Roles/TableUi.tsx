@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { useId } from 'react';
 
 import Switch from '@mui/material/Switch';
 
@@ -21,9 +22,11 @@ const columns: GridColDef[] = [
         width: 150,
         editable: false,
         sortable: false,
-        renderCell: (params: any) => (
-            <Switch {...label} defaultChecked />
-        ),
+        renderCell: (params: any) => {
+            // console.log(params.row.Estado)
+            return <Switch {...label} defaultChecked />
+
+        },
     },
     {
         field: 'Crear',
@@ -58,15 +61,33 @@ const columns: GridColDef[] = [
 
 ];
 
-const rows = [
-    { id: 1, Permiso: 'Adminnistrador', Estado: 1 },
-    { id: 2, Permiso: 'Usuario', Estado: 1 },
-    { id: 3, Permiso: 'Rol', Estado: 1 },
-    { id: 4, Permiso: 'Notas', Estado: 1 },
-    { id: 5, Permiso: 'Noticias', Estado: 1 },
-];
+// const rows = [
+//     { id: 1, Permiso: 'Adminnistrador', Estado: 1 },
+//     { id: 2, Permiso: 'Usuario', Estado: 1 },
+//     { id: 3, Permiso: 'Rol', Estado: 1 },
+//     { id: 4, Permiso: 'Notas', Estado: 1 },
+//     { id: 5, Permiso: 'Noticias', Estado: 1 },
+// ];
 
-export function TableUi() {
+export function TableUi({ allPermisos, hasPermisos }: { allPermisos: any, hasPermisos: any },) {
+
+    let rows: any[] = []
+    let currentPermisosId: any[] = []
+
+    // console.log(allPermisos)
+    // console.log(hasPermisos)
+
+    hasPermisos.map((permiso: any) => {
+        currentPermisosId.push(permiso.permissions.id)
+    })
+
+
+    allPermisos.map((permiso: any, index: number) => {
+        // rows.push({ id: index + 1, Permiso: permiso.categoria, Estado: true })
+
+        rows.push({ id: index + 1 , Permiso: permiso.categoria, Estado: true })
+    })
+
     return (
         <Box sx={{ height: 400, width: '100%' }}>
             <DataGrid

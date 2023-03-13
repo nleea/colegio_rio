@@ -21,6 +21,7 @@ const GetFetch = <C extends any>() => {
 
     const fetch = useCallback(async (url: string) => {
         try {
+
             dispatch(onLoad({ isLoad: true }));
             const data = await (
                 await instance.get(url)
@@ -37,6 +38,7 @@ const GetFetch = <C extends any>() => {
             }
         }
     }, []);
+
 
     return { error, fetch, data };
 };
