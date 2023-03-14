@@ -11,7 +11,7 @@ import { GetFetch } from '@/service/hooks/modules/getData';
 import { useEffect } from 'react';
 // import { resize } from "@/service/hooks/size/resize";
 
-const Item = styled(Paper)(({ theme }) => ({
+const Item:any = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),

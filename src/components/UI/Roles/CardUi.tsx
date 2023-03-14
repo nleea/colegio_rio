@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField';
 
 import { AvatarUi } from './AvatarUi';
 import { TableUi } from './TableUi';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { resize } from '@/service/hooks/size/resize';
 import { GetFetch } from '@/service/hooks/modules/getData';
@@ -57,6 +58,8 @@ export function CardUi({ dataRol }: { dataRol: any }) {
     // console.log(data)
     const { media } = resize();
 
+
+
     return (
         <>
             <Card sx={{ minWidth: media === 'MOBILE' ? '90%' : media === 'TABLET' ? '90%' : media === 'TABLET_LANDSCAPE' ? "90%" : media === 'DESKTOP' ? '30%' : '10%', m: 2 }}>
@@ -95,10 +98,12 @@ export function CardUi({ dataRol }: { dataRol: any }) {
                     </Typography>
 
                     {
-                        data ? 
-                        <TableUi allPermisos={ data.permissions.data.data as any} hasPermisos={ data.rol.data[0].role_has_permissions as any} />
-                        :
-                        <p>Cargando</p>
+                        data ?
+                            <TableUi allPermisos={data.permissions as any} hasPermisos={data.rol[0].role_has_permissions as any} />
+                            :
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <CircularProgress />
+                            </Box>
                     }
                     <Box
                         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -111,7 +116,7 @@ export function CardUi({ dataRol }: { dataRol: any }) {
                         </Button>
                     </Box>
                 </Box>
-                </Modal>
+            </Modal>
         </>
     );
 }

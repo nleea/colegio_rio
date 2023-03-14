@@ -10,7 +10,7 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90 },
     {
-        field: 'Permiso',
+        field: 'categoria',
         headerName: 'Permiso',
         width: 150,
         editable: false,
@@ -23,9 +23,12 @@ const columns: GridColDef[] = [
         editable: false,
         sortable: false,
         renderCell: (params: any) => {
-            // console.log(params.row.Estado)
-            return <Switch {...label} defaultChecked />
-
+            // console.log(params)
+            if (params.row.permisos[0] != undefined && params.row.permisos[0].Permiso.includes('ver')) {
+                return <Switch {...label} checked={params.row.permisos[0].estado} />
+            } else {
+                return <Switch {...label} checked={false} />
+            }
         },
     },
     {
@@ -34,9 +37,13 @@ const columns: GridColDef[] = [
         width: 150,
         editable: false,
         sortable: false,
-        renderCell: (params: any) => (
-            <Switch {...label} defaultChecked />
-        ),
+        renderCell: (params: any) => {
+            if (params.row.permisos[1] != undefined && params.row.permisos[1].Permiso.includes('crear')) {
+                return <Switch {...label} checked={params.row.permisos[1].estado} />
+            } else {
+                return <Switch {...label} checked={false} />
+            }
+        }
     },
     {
         field: 'Editar',
@@ -44,9 +51,13 @@ const columns: GridColDef[] = [
         width: 150,
         editable: false,
         sortable: false,
-        renderCell: (params: any) => (
-            <Switch {...label} defaultChecked />
-        ),
+        renderCell: (params: any) => {
+            if (params.row.permisos[2] != undefined && params.row.permisos[2].Permiso.includes('editar')) {
+                return <Switch {...label} checked={params.row.permisos[2].estado} />
+            } else {
+                return <Switch {...label} checked={false} />
+            }
+        }
     },
     {
         field: 'Eliminar',
@@ -54,44 +65,88 @@ const columns: GridColDef[] = [
         width: 150,
         editable: false,
         sortable: false,
-        renderCell: (params: any) => (
-            <Switch {...label} defaultChecked />
-        ),
+        renderCell: (params: any) => {
+            if (params.row.permisos[3] != undefined && params.row.permisos[3].Permiso.includes('eliminar')) {
+                return <Switch {...label} checked={params.row.permisos[3].estado} />
+            } else {
+                return <Switch {...label} checked={false} />
+            }
+        }
     },
 
 ];
 
-// const rows = [
-//     { id: 1, Permiso: 'Adminnistrador', Estado: 1 },
-//     { id: 2, Permiso: 'Usuario', Estado: 1 },
-//     { id: 3, Permiso: 'Rol', Estado: 1 },
-//     { id: 4, Permiso: 'Notas', Estado: 1 },
-//     { id: 5, Permiso: 'Noticias', Estado: 1 },
-// ];
 
 export function TableUi({ allPermisos, hasPermisos }: { allPermisos: any, hasPermisos: any },) {
 
-    let rows: any[] = []
+    let rows: any[] = [
+        {
+            id: 0,
+            Permiso: 'rol',
+            permisos: [
+                { id: 1, name: 'ver', estado: true },
+                { id: 2, name: 'crear', estado: false },
+                { id: 3, name: 'editar', estado: true },
+                { id: 4, name: 'eliminar', estado: false },
+            ]
+        },
+        {
+            id: 1,
+            Permiso: 'estudiante',
+            permisos: [
+                { id: 1, name: 'ver', estado: false },
+                { id: 2, name: 'crear', estado: true },
+                { id: 3, name: 'editar', estado: false },
+                { id: 4, name: 'eliminar', estado: true },
+            ]
+        },
+    ]
     let currentPermisosId: any[] = []
-
-    // console.log(allPermisos)
-    // console.log(hasPermisos)
 
     hasPermisos.map((permiso: any) => {
         currentPermisosId.push(permiso.permissions.id)
     })
 
+    const permisosAgrupados: any = [];
 
-    allPermisos.map((permiso: any, index: number) => {
-        // rows.push({ id: index + 1, Permiso: permiso.categoria, Estado: true })
+    let indice = 1;
 
-        rows.push({ id: index + 1 , Permiso: permiso.categoria, Estado: true })
-    })
+    allPermisos.forEach((permiso: any, index: number) => {
+        const tipoExistente = permisosAgrupados.find((elemento: any) => elemento.categoria === permiso.categoria);
+
+        if (tipoExistente) {
+            if (currentPermisosId.includes(permiso.id)) {
+                permisosAgrupados.map((elemento: any) => {
+                    console.log(elemento) 
+                    // if( currentPermisosId.includes( elemento.id)){
+                    //     elemento.permisos.push({ id: permiso.id, Permiso: permiso.name, estado: true });
+                    // }else{
+                    //     elemento.permisos.push({ id: permiso.id, Permiso: permiso.name, estado: false });
+                    // }
+                })
+            }
+
+        } else {
+
+            let nuevoTipo = {
+                id: indice,
+                categoria: permiso.categoria,
+                permisos: [{ id: permiso.id, Permiso: permiso.name, estado: false }],
+                indice: indice
+            };
+
+            permisosAgrupados.push(nuevoTipo);
+            indice++;
+        }
+    });
+
+    // console.log( currentPermisosId)
+    // console.log(allPermisos)
 
     return (
         <Box sx={{ height: 400, width: '100%' }}>
             <DataGrid
-                rows={rows}
+                rows={permisosAgrupados}
                 columns={columns}
             />
         </Box>
