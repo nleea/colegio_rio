@@ -23,7 +23,6 @@ const columns: GridColDef[] = [
         editable: false,
         sortable: false,
         renderCell: (params: any) => {
-            // console.log(params)
             if (params.row.permisos[0] != undefined && params.row.permisos[0].Permiso.includes('ver')) {
                 return <Switch {...label} checked={params.row.permisos[0].estado} />
             } else {
@@ -66,7 +65,7 @@ const columns: GridColDef[] = [
         editable: false,
         sortable: false,
         renderCell: (params: any) => {
-            if (params.row.permisos[3] != undefined && params.row.permisos[3].Permiso.includes('eliminar')) {
+            if (params.row.permisos[3] != undefined && params.row.permisos[3].Permiso.includes('borrar')) {
                 return <Switch {...label} checked={params.row.permisos[3].estado} />
             } else {
                 return <Switch {...label} checked={false} />
@@ -115,23 +114,19 @@ export function TableUi({ allPermisos, hasPermisos }: { allPermisos: any, hasPer
         const tipoExistente = permisosAgrupados.find((elemento: any) => elemento.categoria === permiso.categoria);
 
         if (tipoExistente) {
-            if (currentPermisosId.includes(permiso.id)) {
-                permisosAgrupados.map((elemento: any) => {
-                    console.log(elemento) 
-                    // if( currentPermisosId.includes( elemento.id)){
-                    //     elemento.permisos.push({ id: permiso.id, Permiso: permiso.name, estado: true });
-                    // }else{
-                    //     elemento.permisos.push({ id: permiso.id, Permiso: permiso.name, estado: false });
-                    // }
-                })
-            }
+            permisosAgrupados.map((elemento: any) => {
 
+                if (currentPermisosId.includes(permiso.id)) {
+                    elemento.permisos.push({ id: permiso.id, Permiso: permiso.name, estado: true });
+                } else {
+                    elemento.permisos.push({ id: permiso.id, Permiso: permiso.name, estado: false });
+                }
+            })
         } else {
-
             let nuevoTipo = {
                 id: indice,
                 categoria: permiso.categoria,
-                permisos: [{ id: permiso.id, Permiso: permiso.name, estado: false }],
+                permisos: [{ id: permiso.id, Permiso: permiso.name, estado: currentPermisosId.some((elemento: any) => elemento === permiso.id) }],
                 indice: indice
             };
 
@@ -140,7 +135,7 @@ export function TableUi({ allPermisos, hasPermisos }: { allPermisos: any, hasPer
         }
     });
 
-    // console.log( currentPermisosId)
+    console.log(permisosAgrupados)
     // console.log(allPermisos)
 
     return (
