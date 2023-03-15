@@ -22,12 +22,13 @@ const AuthCustomHooks = () => {
   const fetch = useCallback(async (url: string, body: any) => {
     try {
       setLoad(true);
-      const { token, user, resources } = await (
+      const { token, user, resources, tokenRefresh } = await (
         await instance.post(url, body)
       ).data.data;
 
       localStorage.setItem("user", JSON.stringify(user.id));
       localStorage.setItem("token", token);
+      localStorage.setItem("tokenRefresh", tokenRefresh);
       localStorage.setItem("menu", JSON.stringify(resources));
       toast.success(`Bienvenido ${user.name}`);
       setLoad(false);

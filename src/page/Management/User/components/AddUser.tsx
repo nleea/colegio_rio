@@ -19,7 +19,7 @@ interface IstaticData {
     usuario: Ifields[];
     estudiante: Ifields[];
     cofuncionarios: Ifields[];
-    aministrador: Ifields[]
+    administrador: Ifields[]
 }
 
 export const RegisterUsers = () => {
@@ -72,7 +72,7 @@ export const RegisterUsers = () => {
                 field: "tarjetaprofesional", label: "Tarjeta Profesional"
             }
         ] as Ifields[],
-        aministrador: [
+        administrador: [
             {
                 field: "fechaingreso", label: "Fecha Ingreso", type: "date"
             },

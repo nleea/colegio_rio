@@ -9,9 +9,17 @@ export const RouteGuard = () => {
     const dispatch = useDispatch()
 
     const verify = async (url: string, token: string) => {
-        const { data } = await instance.post(url, { "token": token });
-        dispatch(isAuth({ isAuth: data.ok }));
-        return { valid: data.ok }
+        try {
+            const { data } = await instance.post(url, { "token": token, "refreshToken": localStorage.getItem("tokenRefresh")! });
+            dispatch(isAuth({ isAuth: data.ok }));
+            if (data.data.is) {
+                localStorage.removeItem("token")
+                localStorage.setItem("token", data.data.token);
+            }
+            return { valid: data.ok }
+        } catch (error) {
+            return { valid: false }
+        }
     }
     return { verify }
 };
