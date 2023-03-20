@@ -33,6 +33,8 @@ export const ModulesAdd = ({ visible_fields }: { visible_fields: any }) => {
     const rows: any = renderData ? renderData : []
 
     const AddRolHandler = async (e: any) => {
+
+        console.log( )
         await AddModulos("modulos/roles/", { rolId: e.rolId, modulos: rolAddData });
         setRolAdd([]);
         onSubmit(e)

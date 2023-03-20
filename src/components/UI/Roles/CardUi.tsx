@@ -19,6 +19,9 @@ import { resize } from '@/service/hooks/size/resize';
 import { GetFetch } from '@/service/hooks/modules/getData';
 
 
+import { useForm } from 'react-hook-form'
+
+
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -58,7 +61,7 @@ export function CardUi({ dataRol }: { dataRol: any }) {
     // console.log(data)
     const { media } = resize();
 
-
+    const { register, handleSubmit, control } = useForm()
 
     return (
         <>
@@ -90,31 +93,27 @@ export function CardUi({ dataRol }: { dataRol: any }) {
                     component="form"
                 >
                     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", my: 2 }}>
-                        Editar rol
+                        Editar rol: {name}
                     </Typography>
-                    <TextField id="outlined-basic" label="Nombre" variant="outlined" sx={{ width: '100%' }} />
+                    <TextField id="outlined-basic" label="Nombre" variant="outlined" sx={{ width: '100%' }} value={ name } />
                     <Typography id="modal-modal-description" sx={{ my: 2 }}>
-                        Editar permisos
+                        Permisos
                     </Typography>
 
                     {
                         data ?
-                            <TableUi allPermisos={data.permissions as any} hasPermisos={data.rol[0].role_has_permissions as any} />
+                            <TableUi
+                                allPermisos={data.permissions as any}
+                                hasPermisos={data.rol[0].role_has_permissions as any}
+                                register={register as any}
+                                control={control as any}
+                                handleClose={handleClose}
+                            />
                             :
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <CircularProgress />
                             </Box>
                     }
-                    <Box
-                        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-                    >
-                        <Button variant="contained" color="success" sx={{ my: 3, mx: 3, }}>
-                            Guardar
-                        </Button>
-                        <Button variant="contained" color="inherit" sx={{ my: 3, mx: 3, }} onClick={handleClose}>
-                            Cancelar
-                        </Button>
-                    </Box>
                 </Box>
             </Modal>
         </>
