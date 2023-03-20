@@ -17,7 +17,7 @@ interface ColumnType {
 type a = ColumnType & GridColDef & GridColTypeDef;
 
 export function ModulesEdit({ viewData, visible_fields }: { viewData: any, visible_fields: any }) {
-    const { data: renderData, isLoad, fetch } = PostFetch();
+    const { data: renderData, isLoad, fetch } = PostFetch<any>();
     const { fetch: deleteFetch, error } = DeleteFetch();
     const { register, handleSubmit, control } = useForm();
     const onSubmit = (data: any) => { fetch("modulos/roles/hash", data) };

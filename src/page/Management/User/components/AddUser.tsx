@@ -36,7 +36,18 @@ export const RegisterUsers = () => {
     }, [])
 
     const onSubmit = (data: any) => {
-        postData("user/register/", data);
+        const values = new FormData()
+
+        Object.keys(data).map((key) => {
+            if (key === "avatar") {
+                values.append(key, data[key][0])
+            } else {
+                values.append(key, data[key])
+            }
+
+        });
+
+        postData("user/register/", values);
     };
 
     const StaticData: IstaticData = {
@@ -54,7 +65,8 @@ export const RegisterUsers = () => {
             { field: "apellido", label: "Apellido", type: "text" },
             { field: "segundoapellido", label: "Segundo Apellido", type: "text" },
             { field: "observaciones", label: "Observaciones", type: "text" },
-            { field: "roles", label: "Rol", type: "select", options: data ?? [] }
+            { field: "roles", label: "Rol", type: "select", options: data ?? [] },
+            { field: "avatar", label: "Avatar", type: "file" }
         ] as Ifields[],
         estudiante: [
             {

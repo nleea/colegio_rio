@@ -54,13 +54,9 @@ export const Roles = () => {
                 </Grid>
 
                 <Grid item xs={BreakPoint[media].max} height="500px" maxWidth={"100%"}>
-                    <Table data={data ? data : []} visible_fields={[{ header: "id", access: "id" }, { header: "username", access: "username" }, { header: "roles", access: "roles" }, { header: "email", access: "email" }]} modalOpen={() => setOpen(true)} />
+                    <Table data={data ? data : []} visible_fields={[{ header: "id", access: "id" }, { header: "username", access: "username" }, { header: "roles", access: "roles" }, { header: "email", access: "email" }]}  />
                 </Grid>
             </Grid>
-
-            <ViewModal open={open} closeHandler={closeHandler} >
-
-            </ViewModal>
         </>
     )
 }
