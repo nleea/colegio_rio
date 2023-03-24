@@ -3,7 +3,7 @@ import { Grid, Paper, Box, Divider, styled, ThemeProvider } from "@mui/material"
 import { BoxTheme } from "./themes/themes";
 import { AvatarProfile } from "./avatar/Avatar";
 import { RouterProfile } from "./routes/Routes.profile";
-import { resize } from "../../service/hooks/size/resize";
+import { resize, IbreakPoint } from "../../service/hooks/size/resize";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -14,26 +14,35 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Profile() {
-    const { media } = resize();
 
-    const BreakPoint: any = {
-        "MOBILE": {
-            "min": 12,
-            "max": 12
+    const BreakPoint: IbreakPoint = {
+        MOBILE: {
+            width: {
+                min: 12,
+                max: 12
+            }
         },
-        "TABLET": {
-            "min": 12,
-            "max": 12
+        TABLET: {
+            width: {
+                min: 12,
+                max: 12
+            }
         },
-        "TABLET_LANDSCAPE": {
-            "min": 12,
-            "max": 12
+        TABLET_LANDSCAPE: {
+            width: {
+                min: 12,
+                max: 12
+            }
         },
-        "DESKTOP": {
-            "min": 3,
-            "max": 9
+        DESKTOP: {
+            width: {
+                min: 3,
+                max: 9
+            }
         },
     }
+
+    const { media } = resize({ ...BreakPoint });
 
     return (
         <Box sx={{ flexGrow: 1 }} style={{ height: '100%', width: "90%", margin: "auto" }} >
@@ -41,7 +50,7 @@ export default function Profile() {
                 <Grid item xs={12} height="10%" >
                     <Item>Personal Information</Item>
                 </Grid>
-                <Grid item xs={BreakPoint[media]?.min} height="auto">
+                <Grid item xs={media?.width?.min as number} height="auto">
                     <ThemeProvider theme={BoxTheme} >
                         <Item>
                             <AvatarProfile />
@@ -50,7 +59,7 @@ export default function Profile() {
                         </Item>
                     </ThemeProvider>
                 </Grid>
-                <Grid item xs={BreakPoint[media]?.max} height="auto" marginBottom={10} >
+                <Grid item xs={media?.width?.max as number} height="auto" marginBottom={10} >
                     <ThemeProvider theme={BoxTheme} >
                         <Item>
                             <Outlet />

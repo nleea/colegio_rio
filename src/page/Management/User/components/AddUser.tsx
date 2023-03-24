@@ -25,7 +25,7 @@ interface IstaticData {
 export const RegisterUsers = () => {
     const { data, fetch } = GetFetch();
     const { fetch: postData } = PostFetch();
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const [select, setSelect] = useState<Partial<keyof IstaticData>>();
 
     useEffect(() => {
@@ -35,19 +35,17 @@ export const RegisterUsers = () => {
         test();
     }, [])
 
-    const onSubmit = (data: any) => {
+    const onSubmit = async (data: any) => {
         const values = new FormData()
-
-        Object.keys(data).map((key) => {
-            if (key === "avatar") {
-                values.append(key, data[key][0])
-            } else {
-                values.append(key, data[key])
+        for (const key in data) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
+                const value = data[key];
+                values.append(key, value instanceof FileList ? value[0] : value);
             }
+        }
 
-        });
-
-        postData("user/register/", values);
+        await postData("user/register/", values);
+        reset();
     };
 
     const StaticData: IstaticData = {
@@ -65,8 +63,8 @@ export const RegisterUsers = () => {
             { field: "apellido", label: "Apellido", type: "text" },
             { field: "segundoapellido", label: "Segundo Apellido", type: "text" },
             { field: "observaciones", label: "Observaciones", type: "text" },
+            { field: "avatar", label: "Avatar", type: "file" },
             { field: "roles", label: "Rol", type: "select", options: data ?? [] },
-            { field: "avatar", label: "Avatar", type: "file" }
         ] as Ifields[],
         estudiante: [
             {

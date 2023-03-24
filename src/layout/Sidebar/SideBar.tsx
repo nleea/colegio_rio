@@ -12,7 +12,7 @@ import { resize } from "../../service/hooks/size/resize";
 
 export default function Sidebar({ displaySidebar, closeHandler }: { children?: any, displaySidebar: boolean, closeHandler: any; }) {
 
-    const { media } = resize();
+    // const { media } = resize();
 
     return (
         <>
@@ -31,7 +31,7 @@ export default function Sidebar({ displaySidebar, closeHandler }: { children?: a
                             </SidebarBrand>
                         </SidebarLogo>
                     </SidebarLogoWrapper>
-                    {media && <button onClick={closeHandler}><Close></Close></button>}
+                    {<button onClick={closeHandler}><Close></Close></button>}
                     <hr style={{ width: "100%", color: "black" }} />
                     <SidebarItems displaySidebar={displaySidebar} closeHandler={closeHandler} />
                 </SidebarWrapper>

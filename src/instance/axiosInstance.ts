@@ -16,14 +16,14 @@ instance.interceptors.request.use(
     return config;
   },
   (error) => {
-    toast.error(error.response.data.data);
+    toast.error("Error Api");
   }
 );
 
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    toast.error(error.response.data.data);
+    toast.error("Error Api");
   }
 );
 
