@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { resize } from "@/service/hooks/size/resize";
 import { CustomForm, Ifields } from "@/components/UI/form/index";
+import { PostFetch } from "@/service/hooks/modules/PostData";
 
 export interface AllowAsistencias {
     identificacion: string;
@@ -15,6 +17,12 @@ export interface AllowAsistencias {
 
 export const ControlAsistencia = () => {
 
+    const { fetch, data } = PostFetch();
+
+    useEffect(() => {
+        fetch("control/user/asistencia/", { id: 4 })
+    }, [])
+
     const { media } = resize({ MOBILE: { width: { max: "95%", min: "80%" } }, DESKTOP: { width: { min: "10%", max: "40%" } }, TABLET: { width: { min: "10%", max: "80%" } }, TABLET_LANDSCAPE: { width: { min: "10%", max: "40%" } } });
 
     const ControlFields: Ifields<AllowAsistencias>[] = [
@@ -29,6 +37,7 @@ export const ControlAsistencia = () => {
     ]
 
     return (
-        <CustomForm fields={ControlFields} media={media} box={true} url="control/asistencia/" />
+        //<CustomForm fields={ControlFields} media={media} box={true} url="control/asistencia/" />
+        <img src={data as any} alt="" />
     )
 }

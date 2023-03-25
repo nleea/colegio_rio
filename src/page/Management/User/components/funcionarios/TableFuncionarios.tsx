@@ -17,7 +17,7 @@ export const TablaFuncionarios = () => {
         fetch("user", { type: "Estudiante", is: false })
     }, [])
 
-    const { media } = resize();
+    
 
     const BreakPoint: any = {
         "MOBILE": {
