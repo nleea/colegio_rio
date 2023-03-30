@@ -1,5 +1,7 @@
-import { useCallback, useState } from "react";
 import { instance } from "@/instance/axiosInstance";
+import { onLoad } from "@/service/context/features/load";
+import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 
 interface ErrorResponse {
     data: any;
@@ -12,32 +14,33 @@ interface ErrorRequest {
 
 type interfaceError = ErrorResponse | ErrorRequest;
 
-const PostFetch = <C extends any>() => {
+const GetFetchFiles = <C extends any>() => {
+    const dispatch = useDispatch();
     const [data, setData] = useState<C>();
-    const [isLoad, setLoad] = useState(false);
     const [error, setError] = useState<interfaceError>();
 
-    const fetch = useCallback(async (url: string, body: any) => {
+    const fetch = useCallback(async (url: string, header?: any) => {
         try {
-            setLoad(true);
+
+            dispatch(onLoad({ isLoad: true }));
             const data = await (
-                await instance.post(url, body)
-            ).data.data;
+                await instance.get(url, header)
+            ).data;
             setData(data);
-            setLoad(false);
+            dispatch(onLoad({ isLoad: false }));
         } catch (error: any) {
             if (error.response) {
                 setError({ data: error.response.data, status: error.response.status });
             } else if (error.request) {
                 setError({ request: error.request });
             } else {
-                setError(error)
                 console.log("Error", error.message);
             }
         }
     }, []);
 
-    return { isLoad, error, fetch, data };
+
+    return { error, fetch, data };
 };
 
-export { PostFetch };
+export { GetFetchFiles };

@@ -19,12 +19,12 @@ const GetFetch = <C extends any>() => {
     const [data, setData] = useState<C>();
     const [error, setError] = useState<interfaceError>();
 
-    const fetch = useCallback(async (url: string) => {
+    const fetch = useCallback(async (url: string, header?: any) => {
         try {
 
             dispatch(onLoad({ isLoad: true }));
             const data = await (
-                await instance.get(url)
+                await instance.get(url, header)
             ).data.data;
             setData(data);
             dispatch(onLoad({ isLoad: false }));

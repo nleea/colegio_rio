@@ -23,7 +23,7 @@ interface IstaticData {
 }
 
 export const RegisterUsers = () => {
-    const { data, fetch } = GetFetch();
+    const { data, fetch, error } = GetFetch();
     const { fetch: postData } = PostFetch();
     const { register, handleSubmit, reset } = useForm();
     const [select, setSelect] = useState<Partial<keyof IstaticData>>();
@@ -45,7 +45,7 @@ export const RegisterUsers = () => {
         }
 
         await postData("user/register/", values);
-        reset();
+        if (!error) reset();
     };
 
     const StaticData: IstaticData = {
