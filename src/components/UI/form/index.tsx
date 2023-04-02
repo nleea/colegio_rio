@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { PostFetch } from "@/service/hooks/modules/PostData";
 import { Paper, Box } from "@mui/material";
 import { Button } from "@/components/UI/button";
-import { resize, Ipoint } from "@/service/hooks/size/resize";
+import { Ipoint } from "@/service/hooks/size/resize";
+import { isArray } from "lodash";
 
 export const FormInputStyled = styled.input`
 background: white;
@@ -12,7 +13,7 @@ width: 100%;
 color: black;
 height: 30px;
 margin: 10px;
-
+display: ${({ visible }: { visible: boolean }) => visible ? 'block' : 'none'};
 &:active, &:hover, &:focus {
     border-bottom: 1px solid blue;
     transition border-bottom 1s linear;
@@ -51,18 +52,20 @@ export type Ifields<C = {}> = {
     type: keyof Itypes;
     defaultValue?: any;
     options?: any[];
-    visible?: boolean;
+    dependence?: string | string[];
+    dependence_value?: string | string[];
 }
 
 type IstaticData = {
     [x: string]: Ifields[];
 }
 
-export const CustomForm = ({ fields, media, box = true, url, customPost }: { fields: any[], media?: Ipoint, box?: boolean, url: string, customPost?: () => void }) => {
 
+export const CustomForm = ({ fields, media, box = true, url, customPost }: { fields: Ifields[], media?: Ipoint, box?: boolean, url: string, customPost?: () => void }) => {
 
     const { fetch: postData } = PostFetch();
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, watch } = useForm();
+    const fieldWatch = watch()
 
     const onSubmit = async (data: any) => {
         let file = false;
@@ -85,7 +88,6 @@ export const CustomForm = ({ fields, media, box = true, url, customPost }: { fie
         reset()
     };
 
-
     const StaticData: IstaticData = {
         inputs: fields as Ifields[]
     }
@@ -93,18 +95,23 @@ export const CustomForm = ({ fields, media, box = true, url, customPost }: { fie
 
     const formFactory = () => {
 
-        return StaticData.inputs.map((data) => {
+        return StaticData.inputs.map((data, index) => {
             if (data.type === "select") {
                 return <FormSelect key={data.field}  {...register(data.field)} >
                     <option>Select a option</option>
                     {
-                        data.options?.map((opt) => <option key={opt.name} value={opt.value} >{` ${(opt.name as string).charAt(0).toUpperCase().concat((opt.name as string).substring(1, opt.name.lenght))} `}</option>)
+                        data.options?.map((opt) => <option key={(opt.name as string).concat(`${index}`)} value={opt.value} >{` ${(opt.name as string).charAt(0).toUpperCase().concat((opt.name as string).substring(1, opt.name.lenght))} `}</option>)
                     }
                 </FormSelect>
             }
-            return <FormInputStyled {...register(data.field as string)} key={data.field as string} placeholder={data.label} type={data.type} />
-        })
 
+            const resulst = (data.dependence_value !== undefined && data.dependence !== null) ?
+                isArray(data.dependence_value) && !isArray(data.dependence) ? data.dependence_value.some((value) => value === fieldWatch[data.dependence! as string]) :
+                    isArray(data.dependence) && !isArray(data.dependence_value) ? fieldWatch[data.dependence.find((c) => c in Object.keys(fieldWatch))!] === data.dependence_value :
+                        data.dependence_value === fieldWatch[data.dependence! as string] : true;
+
+            return <FormInputStyled {...register(data.field as string)} key={(data.field as string).concat(`${index}`)} placeholder={data.label} type={data.type} visible={resulst} />
+        })
     };
 
     return box ? <>

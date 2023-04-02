@@ -26,7 +26,7 @@ export const Module = () => {
     const [viewData, setViewData] = useState([])
     type response = Omit<Iresponse, "modulos_has_role"> & Irol;
     let flatData: response[] = [];
-    const load = useSelector((s: RootState) => s.store.isLoad);
+    const load = useSelector((s: RootState) => (s.store as any).isLoad);
 
     useEffect(() => {
         fetch("/modulos");

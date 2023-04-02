@@ -30,6 +30,8 @@ export const resize = (breakPoint: Partial<IbreakPoint>) => {
   useEffect(() => {
     window.addEventListener("resize", ChangeResize);
     ChangeResize();
+
+    return () => window.removeEventListener("resize", ChangeResize);
   }, []);
 
   const ChangeResize = () => {
