@@ -1,41 +1,10 @@
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { PostFetch } from "@/service/hooks/modules/PostData";
+import { MultipleFetch, Methods } from "@/service/hooks/modules/optionsFetch";
 import { Paper, Box } from "@mui/material";
 import { Button } from "@/components/UI/button";
 import { Ipoint } from "@/service/hooks/size/resize";
 import { isArray } from "lodash";
-
-export const FormInputStyled = styled.input`
-background: white;
-border-bottom: 1px solid black;
-width: 100%;
-color: black;
-height: 30px;
-margin: 10px;
-display: ${({ visible }: { visible: boolean }) => visible ? 'block' : 'none'};
-&:active, &:hover, &:focus {
-    border-bottom: 1px solid blue;
-    transition border-bottom 1s linear;
-}
-`;
-
-
-export const FormStyled = styled.form`
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-justify-content: space-around;
-`;
-
-export const FormSelect = styled.select`
-background: white;
-border-bottom: 1px solid black;
-width: 100%;
-color: black;
-height: 30px;
-margin: 10px;
-`;
+import { FormInputStyled, FormSelect, FormStyled, FormDate } from "./styles";
 
 interface Itypes {
     text: string;
@@ -44,7 +13,6 @@ interface Itypes {
     number: string;
     file: string;
 }
-
 
 export type Ifields<C = {}> = {
     field: keyof C;
@@ -60,17 +28,24 @@ type IstaticData = {
     [x: string]: Ifields[];
 }
 
+type FormType = "Save" | "Edit";
 
-export const CustomForm = ({ fields, media, box = true, url, customPost }: { fields: Ifields[], media?: Ipoint, box?: boolean, url: string, customPost?: () => void }) => {
 
-    const { fetch: postData } = PostFetch();
+interface Form {
+    type: FormType;
+    icon?: any;
+}
+
+export const CustomForm = ({ fields, media, box = true, url, action, method, formType }: { fields: Ifields[], formType?: Form, media?: Ipoint, box?: boolean, url: string, method?: Methods, action?: () => void }) => {
+
+    const { fetch } = MultipleFetch();
     const { register, handleSubmit, reset, watch } = useForm();
     const fieldWatch = watch()
 
     const onSubmit = async (data: any) => {
         let file = false;
-        if (customPost) {
-            customPost()
+        if (action) {
+            action()
         } else {
             const values = new FormData()
             for (const key in data) {
@@ -83,7 +58,7 @@ export const CustomForm = ({ fields, media, box = true, url, customPost }: { fie
                 }
             }
 
-            await postData(url, file ? values : data);
+            await fetch(url, file ? values : data, method ?? "post");
         }
         reset()
     };
@@ -96,6 +71,12 @@ export const CustomForm = ({ fields, media, box = true, url, customPost }: { fie
     const formFactory = () => {
 
         return StaticData.inputs.map((data, index) => {
+
+            const resulst = (data.dependence_value !== undefined && data.dependence !== undefined) ?
+                isArray(data.dependence_value) ?
+                    data.dependence_value.some((value) => value === fieldWatch[data.dependence! as string]) :
+                    data.dependence_value === fieldWatch[data.dependence as string] : true;
+
             if (data.type === "select") {
                 return <FormSelect key={data.field}  {...register(data.field)} >
                     <option>Select a option</option>
@@ -103,12 +84,12 @@ export const CustomForm = ({ fields, media, box = true, url, customPost }: { fie
                         data.options?.map((opt) => <option key={(opt.name as string).concat(`${index}`)} value={opt.value} >{` ${(opt.name as string).charAt(0).toUpperCase().concat((opt.name as string).substring(1, opt.name.lenght))} `}</option>)
                     }
                 </FormSelect>
+            } else if (data.type === "date") {
+                return <FormDate visible={resulst}>
+                    <label htmlFor={(data.field as string).concat(`${index}`)} className="form-date__label" >{data.label}</label>
+                    <input className="form-date__input"  {...register(data.field)} key={(data.field as string).concat(`${index}`)} placeholder={data.label} type="date" id={(data.field as string).concat(`${index}`)} />
+                </FormDate>
             }
-
-            const resulst = (data.dependence_value !== undefined && data.dependence !== null) ?
-                isArray(data.dependence_value) && !isArray(data.dependence) ? data.dependence_value.some((value) => value === fieldWatch[data.dependence! as string]) :
-                    isArray(data.dependence) && !isArray(data.dependence_value) ? fieldWatch[data.dependence.find((c) => c in Object.keys(fieldWatch))!] === data.dependence_value :
-                        data.dependence_value === fieldWatch[data.dependence! as string] : true;
 
             return <FormInputStyled {...register(data.field as string)} key={(data.field as string).concat(`${index}`)} placeholder={data.label} type={data.type} visible={resulst} />
         })
@@ -121,7 +102,7 @@ export const CustomForm = ({ fields, media, box = true, url, customPost }: { fie
                     {
                         ...formFactory()
                     }
-                    <Button type="submit">Save</Button>
+                    <Button type="submit">{formType?.type} </Button>
                 </FormStyled>
             </Paper>
         </Box>
@@ -132,7 +113,7 @@ export const CustomForm = ({ fields, media, box = true, url, customPost }: { fie
                 {
                     ...formFactory()
                 }
-                <Button type="submit">Save</Button>
+                <Button type="submit">{formType?.type}</Button>
             </FormStyled>
         </>
 }

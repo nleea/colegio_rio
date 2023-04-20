@@ -38,7 +38,7 @@ export const RouteGuardComponent = () => {
         return () => {
             d();
         }
-    }, [location.pathname]);
+    }, []);
 
     return auth ? <Outlet /> : <Navigate replace to={"/auth/login"} />
 }

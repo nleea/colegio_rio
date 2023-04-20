@@ -2,13 +2,10 @@ import { Paper } from "@mui/material";
 import { CustomForm } from "@/components/UI/form";
 import type { Ifields } from "@/components/UI/form";
 import { GetAll } from "@/service/hooks/GetAll";
-
+import { AdminPanel } from "@/components/sidebar/icons/Icons";
 export const RegisterUsers = () => {
 
     const { state } = GetAll<any>("roles/");
-
-
-
 
     const StaticData: Ifields<any>[] = [
         { field: "email", label: "Email", type: "text", defaultValue: "" },
@@ -26,21 +23,15 @@ export const RegisterUsers = () => {
         { field: "observaciones", label: "Observaciones", type: "text" },
         { field: "avatar", label: "Avatar", type: "file" },
         { field: "roles", label: "Rol", type: "select", options: state ?? [] },
-        { field: "fechaingreso", label: "Fecha Ingreso", type: "date", dependence: "roles", dependence_value: "Estudiante" },
+        { field: "fechaingreso", label: "Fecha Ingreso", type: "date", dependence: "roles", dependence_value: ["Estudiante","Cofuncionarios"] },
         { field: "fechasalida", label: "Fecha Salida", type: "date", dependence: "roles", dependence_value: "Estudiante" },
-        { field: "fechaingreso", label: "Fecha Ingreso", type: "date", dependence: "roles", dependence_value: "Cofuncionarios" },
-        { field: "tarjetaprofesional", label: "Tarjeta Profesional", type: "text", dependence: "roles", dependence_value: "Cofuncionarios" },
-        {
-            field: "test", label: "Rol", type: "select", options: [{ name: "test1", value: "test1" }, { name: "test2", value: "test2" }]
-        },
-        { field: "fechaingreso", label: "Fecha Ingreso", type: "date", dependence: "test", dependence_value: "test1" },
-        { field: "tarjetaprofesional", label: "Tarjeta Profesional", type: "text", dependence: "test", dependence_value: "test2" },
+        { field: "tarjetaprofesional", label: "Tarjeta Profesional", type: "text", dependence: "roles", dependence_value: "Cofuncionarios" }
     ]
 
     return (
 
         <Paper style={{ margin: "auto", width: "60%", borderRadius: "0" }} >
-            <CustomForm fields={StaticData} url="user/register/" />
+            <CustomForm fields={StaticData} url="user/register/" formType={{type:"Save",icon:AdminPanel}} />
         </Paper >
 
     )
