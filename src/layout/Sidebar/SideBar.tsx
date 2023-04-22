@@ -8,11 +8,8 @@ import {
 import BrandLogo from "../../assets/react.svg";
 import { SidebarItems } from "@/components/sidebar/items/SideBarItems";
 import { Close } from "../../components/sidebar/icons/Icons";
-import { resize } from "../../service/hooks/size/resize";
 
 export default function Sidebar({ displaySidebar, closeHandler }: { children?: any, displaySidebar: boolean, closeHandler: any; }) {
-
-    // const { media } = resize();
 
     return (
         <>

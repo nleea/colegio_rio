@@ -24,7 +24,7 @@ const GetFetchFiles = <C extends any>() => {
 
             dispatch(onLoad({ isLoad: true }));
             const data = await (
-                await instance.get(url, header)
+                await instance.get(url,{responseType: "blob"} )
             ).data;
             setData(data);
             dispatch(onLoad({ isLoad: false }));

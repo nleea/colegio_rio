@@ -6,7 +6,7 @@ const controller = new AbortController();
 
 const instance = axios.create({
   baseURL: environt.url,
-  signal: controller.signal,
+  signal: controller.signal
 });
 
 instance.interceptors.request.use(

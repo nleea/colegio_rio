@@ -25,7 +25,7 @@ export const ControlAsistencia = () => {
 
     useEffect(() => {
         //fetch("control/user/asistencia/", { id: 4 })
-        getFetch("control/user/asistencia/", { responseType: 'blob' });
+        getFetch("control/asistencia/", { responseType: 'blob' });
     }, [])
 
     const { media } = resize({ MOBILE: { width: { max: "95%", min: "80%" } }, DESKTOP: { width: { min: "10%", max: "40%" } }, TABLET: { width: { min: "10%", max: "80%" } }, TABLET_LANDSCAPE: { width: { min: "10%", max: "40%" } } });
@@ -43,11 +43,10 @@ export const ControlAsistencia = () => {
 
     const savePDF = async () => {
         const { data } = await axios.get("http://localhost:4000/api/control/user/asistencia/", { responseType: "blob" });
-        console.log(data)
         const blob = new Blob([data])
         const link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
-        link.setAttribute('download', 'file.pdf');
+        link.setAttribute('download', 'file.zip');
         link.click()
     }
 
