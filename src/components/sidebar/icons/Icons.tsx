@@ -17,7 +17,7 @@ import TimelineIcon from '@mui/icons-material/Timeline';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SchoolIcon from '@mui/icons-material/School';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
-import { Close, Boy as BoyIcon, CastForEducation } from "@mui/icons-material";
+import { Close, Boy as BoyIcon, CastForEducation, ListAlt } from "@mui/icons-material";
 
 export {
     HomeOutlinedIcon as HomeIcon,
@@ -41,5 +41,6 @@ export {
     HistoryEduIcon,
     Close,
     BoyIcon,
-    CastForEducation
+    CastForEducation,
+    ListAlt
 };

@@ -4,7 +4,7 @@ import {
   RolesIcon,
   SchoolIcon,
   WizardIcon,
-  HistoryEduIcon,
+  ListAlt,
   BoyIcon,
   CastForEducation,
 } from "@/components/sidebar/icons/Icons";
@@ -25,4 +25,5 @@ export const iconsMenu: any = {
   WizardIcon: WizardIcon,
   BoyIcon: BoyIcon,
   CastForEducation: CastForEducation,
+  ListAlt
 };

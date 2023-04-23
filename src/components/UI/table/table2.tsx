@@ -5,9 +5,14 @@ import { WrapperEditIcon } from "./theme/theme";
 import { TableBox, RolComponent } from "./theme/theme";
 import { Edit } from '@mui/icons-material';
 
-function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visible_fields: any, modalOpen?: () => void, viewData?: (props: any) => void }) {
+export interface IvisibleFields {
+    header:string;
+    access: string;
+}
 
-    const columnsData = visible_fields!.map((e: any) => {
+function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visible_fields: IvisibleFields[], modalOpen?: () => void, viewData?: (props: any) => void }) {
+
+    const columnsData = visible_fields!.map((e) => {
         let ExtrasActions = {} as Partial<MRT_ColumnDef>;
         if (e.header === 'roles' || e.header === 'rol') {
             ExtrasActions = {
@@ -48,19 +53,20 @@ function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visi
         }
         return {
             ...ExtrasActions,
-            header: e.header.charAt(0).toUpperCase().concat(e.header.substring(1, e.length)),
+            header: e.header.charAt(0).toUpperCase().concat(e.header.substring(1, e.header.length)),
             accessorKey: e.access,
         } as MRT_ColumnDef
     });
 
+
     const columns = useMemo<MRT_ColumnDef[]>(
-        () => columnsData.filter((column: any) => visible_fields!.map((v: any) => v.header).includes(column!.accessorKey as any)),
+        () => columnsData.filter((column) => visible_fields!.map((v) => v.header.toLowerCase()).includes(column!.header.toLowerCase())),
         [],
     );
 
     return (
 
-        <TableBox height="auto" >
+        <TableBox>
             {
                 data === undefined ? <ProgressPolymorphys type="circular" /> : <MaterialReactTable
                     manualExpanding={true}
@@ -78,6 +84,7 @@ function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visi
                     pageCount={15}
                     initialState={{ showColumnFilters: false }}
                     enableColumnFilterModes
+                    enableRowSelection
                 />
             }
         </TableBox>

@@ -23,7 +23,7 @@ type FormValues = {
 
 const PersonalInfo = () => {
     const user = useLoaderData() as any;
-    const { media } = resize(1100);
+    const { media } = resize({});
     const userId = localStorage.getItem("user")
     const { fetch, error } = UpdateCustomHooks();
 

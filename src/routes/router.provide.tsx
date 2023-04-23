@@ -20,7 +20,6 @@ import Settings from "@/page/Profile/components/settings";
 import { RouteGuard, RouteGuardComponent } from "@/components/RouterGuard/RouterGuard";
 import { instance } from "../instance/axiosInstance";
 import { Toaster } from "react-hot-toast";
-
 import { ControlAsistencia } from "@/page/Control/Control";
 
 export const Router = () => {
@@ -84,6 +83,10 @@ export const Router = () => {
                                         }
                                     ]
                                 },
+                                {
+                                    path: "asistencia",
+                                    element: <ControlAsistencia />
+                                },
                                 // {
                                 //     path: "roles",
                                 //     element: <Roles />,
@@ -131,10 +134,6 @@ export const Router = () => {
                     element: <Login />
                 }
             ]
-        },
-        {
-            path: "asistencia",
-            element: <ControlAsistencia />
         }
     ]);
 
