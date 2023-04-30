@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Box, Toolbar, Typography, MenuItem, Menu, Button } from "@mui/material";
-import { IconButton, MenuIcon, CloseIcon, UserIconConfig } from "@/components/navbar/icons/icons";
+import {  UserIconConfig } from "@/components/navbar/icons/icons";
 import { ButtonMenu } from "@/components/navbar/items/buttonMenu";
 import { ThemeProvider } from "@mui/material/styles";
 import { ButtonTheme } from "@/components/navbar/theme/ButtonTheme";

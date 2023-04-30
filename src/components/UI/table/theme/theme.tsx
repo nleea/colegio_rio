@@ -7,7 +7,7 @@ const TableBox = Style(Box)`
 width:100%;
 height: 100%;
 margin: 20px auto 0 auto;
-background: white;
+background: ${({$background}:{$background:boolean})=> $background ? "white":"transparent" };
 color: black;
 border-radius: 0;
 

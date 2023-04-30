@@ -5,12 +5,14 @@ export interface Istore {
   isLoad: boolean;
   isAuth: boolean;
   isError: string;
+  selectUsers: Array<any>;
 }
 
 const initialState: Istore = {
   isLoad: false,
   isAuth: false,
   isError: "",
+  selectUsers: []
 };
 
 export const counterSlice = createSlice({
@@ -26,9 +28,12 @@ export const counterSlice = createSlice({
     isError: (state, action: PayloadAction<Partial<Istore>>) => {
       state.isError = action.payload.isError!;
     },
+    selectUser: (state, action: PayloadAction<Partial<Istore>>) => {
+      state.selectUsers = action.payload.selectUsers!;
+    }
   },
 });
 
-export const { onLoad, isAuth, isError } = counterSlice.actions;
+export const { onLoad, isAuth, isError,selectUser } = counterSlice.actions;
 
 export default counterSlice.reducer;

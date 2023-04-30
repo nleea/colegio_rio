@@ -4,13 +4,21 @@ import { ProgressPolymorphys } from "@/components/UI/ProgressPolymorphys";
 import { WrapperEditIcon } from "./theme/theme";
 import { TableBox, RolComponent } from "./theme/theme";
 import { Edit } from '@mui/icons-material';
+import { Button } from "@/components/UI/button";
+
+export interface IfieldsToolbar {
+    onClick: (param?:any)=> void;
+    title: string;
+    styles: Object;
+}
+
 
 export interface IvisibleFields {
-    header:string;
+    header: string;
     access: string;
 }
 
-function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visible_fields: IvisibleFields[], modalOpen?: () => void, viewData?: (props: any) => void }) {
+function Table({ data, visible_fields, modalOpen, viewData, box = false, componentstoolBar, dispatch }: { data?: any, visible_fields: IvisibleFields[], modalOpen?: () => void, viewData?: (props: any) => void, box?: boolean, componentstoolBar?: Array<IfieldsToolbar>, dispatch?: any }) {
 
     const columnsData = visible_fields!.map((e) => {
         let ExtrasActions = {} as Partial<MRT_ColumnDef>;
@@ -66,7 +74,7 @@ function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visi
 
     return (
 
-        <TableBox>
+        <TableBox $background={box} >
             {
                 data === undefined ? <ProgressPolymorphys type="circular" /> : <MaterialReactTable
                     manualExpanding={true}
@@ -85,6 +93,11 @@ function Table({ data, visible_fields, modalOpen, viewData }: { data?: any, visi
                     initialState={{ showColumnFilters: false }}
                     enableColumnFilterModes
                     enableRowSelection
+                    renderTopToolbarCustomActions={
+                        ({ table }) => {
+                            return componentstoolBar?.map((component,index) => <Button key={index}  onClick={()=>component.onClick(table.getSelectedRowModel().flatRows.map((row)=>row.original))}  {...component.styles} >{component.title}</Button>)
+                        }
+                    }
                 />
             }
         </TableBox>
