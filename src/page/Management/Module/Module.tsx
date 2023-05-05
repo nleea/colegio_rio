@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { Table } from "@/components/UI/table/table2";
 import { GetFetch } from "@/service/hooks/modules/getData";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/service/context/app/store";
 import { ViewModal } from "@/components/UI/modal/Modal";
 import { ModulesEdit } from "@/page/Management/Module/components/modules/ModulesEdit";
 import { ModulesAdd } from "@/page/Management/Module/components/modules/ModulesAdd";
@@ -26,7 +24,6 @@ export const Module = () => {
     const [viewData, setViewData] = useState([])
     type response = Omit<Iresponse, "modulos_has_role"> & Irol;
     let flatData: response[] = [];
-    const load = useSelector((s: RootState) => (s.store as any).isLoad);
 
     useEffect(() => {
         fetch("/modulos");

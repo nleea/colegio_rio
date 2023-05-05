@@ -7,7 +7,7 @@ import { Edit } from '@mui/icons-material';
 import { Button } from "@/components/UI/button";
 
 export interface IfieldsToolbar {
-    onClick: (param?:any)=> void;
+    onClick: (param?: any) => void;
     title: string;
     styles: Object;
 }
@@ -95,7 +95,7 @@ function Table({ data, visible_fields, modalOpen, viewData, box = false, compone
                     enableRowSelection
                     renderTopToolbarCustomActions={
                         ({ table }) => {
-                            return componentstoolBar?.map((component,index) => <Button key={index}  onClick={()=>component.onClick(table.getSelectedRowModel().flatRows.map((row)=>row.original))}  {...component.styles} >{component.title}</Button>)
+                            return (<div>{componentstoolBar?.map((component, index) => <Button key={index} onClick={() => component.onClick(table.getSelectedRowModel().flatRows.map((row) => row.original))} styles={component.styles} >{component.title}</Button>)}</div>)
                         }
                     }
                 />
